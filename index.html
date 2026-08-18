@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Game Tools</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header id="home">
+
+    <div class="logo">
+        🎮 GAME TOOLS
+    </div>
+
+    <div class="version-badge">
+        v1.0
+    </div>
+
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#tools">Tools</a>
+        <a href="#about">About</a>
+    </nav>
+
+</header>
+
+
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <div class="hero-badge">
+            🎮 BUILT FOR GAMERS
+        </div>
+
+        <h1>
+            YOUR GAMING<br>
+            <span>TOOLKIT</span>
+        </h1>
+
+        <p>
+            Useful gaming tools, calculators and
+            randomizers all in one place.
+        </p>
+
+        <div class="hero-buttons">
+
+            <a
+                href="#tools"
+                class="hero-button"
+            >
+                Explore Tools
+            </a>
+
+            <a
+                href="#gameOfDay"
+                class="hero-button secondary-button"
+            >
+                Game Of The Day
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     STATS
+========================= -->
+
+<section class="stats">
+
+    <div class="stat">
+        <strong>8+</strong>
+        <span>Gaming Tools</span>
+    </div>
+
+    <div class="stat">
+        <strong>70+</strong>
+        <span>Random Games</span>
+    </div>
+
+    <div class="stat">
+        <strong>100%</strong>
+        <span>Free To Use</span>
+    </div>
+
+</section>
+
+
+<!-- =========================
+     GAME OF THE DAY
+========================= -->
+
+<section
+    class="game-day"
+    id="gameOfDay"
+>
+
+    <div class="game-day-card">
+
+        <div class="game-day-label">
+            🕹️ GAME OF THE DAY
+        </div>
+
+        <div class="game-day-icon">
+            🎮
+        </div>
+
+        <h2 id="gameOfDayName">
+            Minecraft
+        </h2>
+
+        <p id="gameOfDayInfo">
+            Build, explore and survive
+            in an endless world.
+        </p>
+
+        <div class="game-day-details">
+
+            <span id="gameOfDayGenre">
+                ⛏️ Sandbox
+            </span>
+
+            <span id="gameOfDayPlatforms">
+                🎮 PC · Console · Mobile
+            </span>
+
+        </div>
+
+        <button
+            class="favorite-day-button"
+            onclick="favoriteGameOfDay()"
+        >
+            ⭐ Add To Favorites
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     POPULAR TOOLS
+========================= -->
+
+<section class="popular-tools">
+
+    <div class="section-heading">
+
+        <p class="section-label">
+            🔥 POPULAR
+        </p>
+
+        <h2>
+            Popular Tools
+        </h2>
+
+        <p>
+            Quick access to the tools
+            gamers use most.
+        </p>
+
+    </div>
+
+
+    <div class="popular-grid">
+
+        <a
+            href="#countdownTool"
+            class="popular-card"
+        >
+
+            <span>⏳</span>
+
+            <strong>
+                Countdown
+            </strong>
+
+            <small>
+                Track any event
+            </small>
+
+        </a>
+
+
+        <a
+            href="#randomGameTool"
+            class="popular-card"
+        >
+
+            <span>🎲</span>
+
+            <strong>
+                Random Game
+            </strong>
+
+            <small>
+                Find something to play
+            </small>
+
+        </a>
+
+
+        <a
+            href="#gameCalcTool"
+            class="popular-card"
+        >
+
+            <span>🧮</span>
+
+            <strong>
+                Game Calc
+            </strong>
+
+            <small>
+                Calculate your stats
+            </small>
+
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     TOOLS
+========================= -->
+
+<section
+    class="tools"
+    id="tools"
+>
+
+    <div class="section-heading">
+
+        <p class="section-label">
+            🛠️ TOOLS
+        </p>
+
+        <h2>
+            Gaming Tools
+        </h2>
+
+        <p>
+            Everything you need in one place.
+        </p>
+
+    </div>
+
+
+    <!-- SEARCH -->
+
+    <div class="tool-search">
+
+        <span>
+            🔎
+        </span>
+
+        <input
+            id="toolSearch"
+            type="text"
+            placeholder="Search tools..."
+            onkeyup="searchTools()"
+        >
+
+    </div>
+
+
+    <div id="noResults">
+        No tools found.
+    </div>
+
+
+    <!-- =========================
+         COUNTDOWN
+    ========================= -->
+
+    <div
+        class="tool-card"
+        id="countdownTool"
+        data-tool="countdown timer event"
+    >
+
+        <div class="tool-icon">
+            ⏳
+        </div>
+
+        <h3>
+            Countdown
+        </h3>
+
+        <p>
+            Countdown to a game event,
+            tournament or anything else.
+        </p>
+
+        <div class="countdown-box">
+
+            <input
+                id="eventInput"
+                type="text"
+                placeholder="Event name"
+            >
+
+            <input
+                id="minutesInput"
+                type="number"
+                placeholder="Minutes"
+                min="0"
+            >
+
+            <input
+                id="secondsInput"
+                type="number"
+                placeholder="Seconds"
+                min="0"
+                max="59"
+            >
+
+            <div class="countdown-buttons">
+
+                <button
+                    onclick="startCountdown()"
+                >
+                    Start Countdown
+                </button>
+
+                <button
+                    onclick="resetCountdown()"
+                >
+                    Reset
+                </button>
+
+            </div>
+
+            <p id="eventName"></p>
+
+            <p id="timer">
+                00:00
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         RANDOM GAME
+    ========================= -->
+
+    <div
+        class="tool-card"
+        id="randomGameTool"
+        data-tool="random game randomizer platform genre"
+    >
+
+        <div class="tool-icon">
+            🎲
+        </div>
+
+        <h3>
+            Random Game
+        </h3>
+
+        <p>
+            Choose a platform and genre,
+            then let Game Tools decide.
+        </p>
+
+        <div class="random-game-box">
+
+            <select id="platformFilter">
+
+                <option value="all">
+                    🎮 All Platforms
+                </option>
+
+                <option value="pc">
+                    🖥️ PC
+                </option>
+
+                <option value="playstation">
+                    🎮 PlayStation
+                </option>
+
+                <option value="xbox">
+                    🟩 Xbox
+                </option>
+
+                <option value="switch">
+                    🔴 Nintendo Switch
+                </option>
+
+                <option value="mobile">
+                    📱 Mobile
+                </option>
+
+            </select>
+
+
+            <select id="genreFilter">
+
+                <option value="all">
+                    🎯 All Genres
+                </option>
+
+                <option value="action">
+                    ⚔️ Action
+                </option>
+
+                <option value="adventure">
+                    🗺️ Adventure
+                </option>
+
+                <option value="rpg">
+                    🧙 RPG
+                </option>
+
+                <option value="shooter">
+                    🔫 Shooter
+                </option>
+
+                <option value="racing">
+                    🏎️ Racing
+                </option>
+
+                <option value="sports">
+                    ⚽ Sports
+                </option>
+
+                <option value="sandbox">
+                    ⛏️ Sandbox
+                </option>
+
+                <option value="indie">
+                    💎 Indie
+                </option>
+
+            </select>
+
+
+            <button
+                onclick="randomGame()"
+            >
+                Pick A Game
+            </button>
+
+
+            <div id="randomResult">
+
+                <div class="result-placeholder">
+
+                    <span>
+                        🎲
+                    </span>
+
+                    <strong>
+                        Ready?
+                    </strong>
+
+                    <small>
+                        Choose your filters and
+                        pick a game.
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         GAME CALCULATOR
+    ========================= -->
+
+    <div
+        class="tool-card"
+        id="gameCalcTool"
+        data-tool="game calculator xp kd win rate matches"
+    >
+
+        <div class="tool-icon">
+            🧮
+        </div>
+
+        <h3>
+            Game Calc
+        </h3>
+
+        <p>
+            Useful gaming calculators
+            all in one place.
+        </p>
+
+        <div class="calculator-box">
+
+            <select
+                id="calculatorType"
+                onchange="changeCalculator()"
+            >
+
+                <option value="xp">
+                    XP Calculator
+                </option>
+
+                <option value="kd">
+                    K/D Calculator
+                </option>
+
+                <option value="winrate">
+                    Win Rate Calculator
+                </option>
+
+                <option value="matches">
+                    Matches Needed
+                </option>
+
+            </select>
+
+
+            <div id="xpCalculator">
+
+                <input
+                    id="xpNeeded"
+                    type="number"
+                    placeholder="XP needed"
+                >
+
+                <input
+                    id="xpPerMatch"
+                    type="number"
+                    placeholder="XP per match"
+                >
+
+                <button
+                    onclick="calculateXP()"
+                >
+                    Calculate
+                </button>
+
+            </div>
+
+
+            <div
+                id="kdCalculator"
+                style="display:none;"
+            >
+
+                <input
+                    id="kills"
+                    type="number"
+                    placeholder="Kills"
+                >
+
+                <input
+                    id="deaths"
+                    type="number"
+                    placeholder="Deaths"
+                >
+
+                <button
+                    onclick="calculateKD()"
+                >
+                    Calculate
+                </button>
+
+            </div>
+
+
+            <div
+                id="winrateCalculator"
+                style="display:none;"
+            >
+
+                <input
+                    id="wins"
+                    type="number"
+                    placeholder="Wins"
+                >
+
+                <input
+                    id="gamesPlayed"
+                    type="number"
+                    placeholder="Games played"
+                >
+
+                <button
+                    onclick="calculateWinRate()"
+                >
+                    Calculate
+                </button>
+
+            </div>
+
+
+            <div
+                id="matchesCalculator"
+                style="display:none;"
+            >
+
+                <input
+                    id="currentXP"
+                    type="number"
+                    placeholder="Current XP"
+                >
+
+                <input
+                    id="targetXP"
+                    type="number"
+                    placeholder="Target XP"
+                >
+
+                <input
+                    id="xpMatch"
+                    type="number"
+                    placeholder="XP per match"
+                >
+
+                <button
+                    onclick="calculateMatches()"
+                >
+                    Calculate
+                </button>
+
+            </div>
+
+
+            <p id="xpResult">
+                Your result will appear here.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         SENSITIVITY
+    ========================= -->
+
+    <div
+        class="tool-card"
+        data-tool="sensitivity calculator sens"
+    >
+
+        <div class="tool-icon">
+            🎯
+        </div>
+
+        <h3>
+            Sensitivity Calc
+        </h3>
+
+        <p>
+            Convert your sensitivity between
+            different mouse DPI values.
+        </p>
+
+        <div class="calculator-box">
+
+            <input
+                id="sensValue"
+                type="number"
+                placeholder="Current sensitivity"
+            >
+
+            <input
+                id="sensDPI"
+                type="number"
+                placeholder="Current DPI"
+            >
+
+            <input
+                id="newDPI"
+                type="number"
+                placeholder="New DPI"
+            >
+
+            <button
+                onclick="calculateSensitivity()"
+            >
+                Calculate
+            </button>
+
+            <p id="sensResult">
+                Your result will appear here.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         SESSION TIMER
+    ========================= -->
+
+    <div
+        class="tool-card"
+        data-tool="session timer gaming timer"
+    >
+
+        <div class="tool-icon">
+            🕐
+        </div>
+
+        <h3>
+            Game Session
+        </h3>
+
+        <p>
+            Track how long you've been
+            gaming during your session.
+        </p>
+
+        <div class="session-box">
+
+            <div id="sessionTimer">
+                00:00:00
+            </div>
+
+            <button
+                onclick="startSession()"
+            >
+                Start
+            </button>
+
+            <button
+                onclick="stopSession()"
+            >
+                Stop
+            </button>
+
+            <button
+                onclick="resetSession()"
+            >
+                Reset
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         RANDOM MODE
+    ========================= -->
+
+    <div
+        class="tool-card"
+        data-tool="random mode random challenge"
+    >
+
+        <div class="tool-icon">
+            🎲
+        </div>
+
+        <h3>
+            Random Mode
+        </h3>
+
+        <p>
+            Let the site choose a random
+            gaming challenge.
+        </p>
+
+        <div class="mode-box">
+
+            <button
+                onclick="randomMode()"
+            >
+                Randomise
+            </button>
+
+            <p id="modeResult">
+                Your challenge will appear here.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         STATS TRACKER
+    ========================= -->
+
+    <div
+        class="tool-card"
+        data-tool="stats tracker gaming stats"
+    >
+
+        <div class="tool-icon">
+            📊
+        </div>
+
+        <h3>
+            Stats Tracker
+        </h3>
+
+        <p>
+            Keep track of your wins,
+            losses and matches.
+        </p>
+
+        <div class="stats-tracker">
+
+            <input
+                id="trackerWins"
+                type="number"
+                placeholder="Wins"
+                min="0"
+            >
+
+            <input
+                id="trackerLosses"
+                type="number"
+                placeholder="Losses"
+                min="0"
+            >
+
+            <button
+                onclick="calculateStats()"
+            >
+                Calculate
+            </button>
+
+            <p id="trackerResult">
+                Your stats will appear here.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         FAVORITES
+    ========================= -->
+
+    <div
+        class="tool-card favorites-card"
+        data-tool="favorites favourite saved games"
+    >
+
+        <div class="tool-icon">
+            ⭐
+        </div>
+
+        <h3>
+            Favorites
+        </h3>
+
+        <p>
+            Your saved games will appear here.
+        </p>
+
+        <div id="favoritesList">
+
+            <div class="empty-favorites">
+                ⭐
+                <span>
+                    No favorites yet.
+                </span>
+            </div>
+
+        </div>
+
+        <button
+            class="danger-button"
+            onclick="clearFavorites()"
+        >
+            Clear Favorites
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     ABOUT
+========================= -->
+
+<section
+    class="about"
+    id="about"
+>
+
+    <p class="section-label">
+        ℹ️ ABOUT
+    </p>
+
+    <h2>
+        Made For Gamers
+    </h2>
+
+    <p>
+        Game Tools is a collection of simple,
+        useful gaming tools designed to make
+        your gaming experience easier.
+    </p>
+
+</section>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+    <div class="logo">
+        🎮 GAME TOOLS
+    </div>
+
+    <p>
+        Gaming tools made simple.
+    </p>
+
+    <small>
+        Game Tools © 2026
+    </small>
+
+</footer>
+
+
+<!-- NOTIFICATION -->
+
+<div
+    id="notification"
+    class="notification"
+>
+    <span id="notificationIcon">
+        ✓
+    </span>
+
+    <span id="notificationText">
+        Done!
+    </span>
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
