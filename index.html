@@ -1,13 +1,315 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="google-site-verification" content="Uy41Sev2TnUc1KV0KNJWbv1EaqqFkjtJf7oEhcZk1TU" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="google-site-verification"
+        content="Uy41Sev2TnUc1KV0KNJWbv1EaqqFkjtJf7oEhcZk1TU"
+    >
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Game Tools</title>
 
     <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* =========================
+           GAMES DROPDOWN
+        ========================= */
+
+        .games-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .games-dropdown-button {
+            background: none;
+            border: none;
+            color: inherit;
+            font: inherit;
+            cursor: pointer;
+            padding: 8px 12px;
+        }
+
+        .games-dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 620px;
+            padding: 15px;
+            background: #111827;
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 16px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+            z-index: 1000;
+        }
+
+        .games-dropdown-menu.show {
+            display: block;
+        }
+
+        .games-dropdown-title {
+            margin: 0 0 12px;
+            font-size: 18px;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .game-card {
+            border: 1px solid rgba(255,255,255,0.1);
+            background: #1b2435;
+            color: white;
+            border-radius: 12px;
+            padding: 16px 8px;
+            cursor: pointer;
+            text-align: center;
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        .game-card:hover {
+            transform: translateY(-3px);
+            background: #26344d;
+        }
+
+        .game-card-icon {
+            font-size: 30px;
+            display: block;
+            margin-bottom: 7px;
+        }
+
+        .game-card-name {
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        /* =========================
+           FULLSCREEN GAME WINDOW
+        ========================= */
+
+        .game-fullscreen {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: #080b12;
+            z-index: 9999;
+            overflow: auto;
+        }
+
+        .game-fullscreen.active {
+            display: block;
+        }
+
+        .game-fullscreen-header {
+            height: 65px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            background: #111827;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 2;
+        }
+
+        .game-fullscreen-title {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .exit-game-button {
+            border: none;
+            background: #ef4444;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 9px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .exit-game-button:hover {
+            background: #dc2626;
+        }
+
+        .game-area {
+            min-height: calc(100vh - 65px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+        }
+
+        .play-game-box {
+            width: min(800px, 95%);
+            min-height: 450px;
+            background: #111827;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        .play-game-box h2 {
+            margin-top: 0;
+        }
+
+        .game-button {
+            border: none;
+            border-radius: 10px;
+            padding: 12px 20px;
+            background: #2563eb;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        .game-button:hover {
+            background: #1d4ed8;
+        }
+
+        /* =========================
+           CLICKER
+        ========================= */
+
+        .clicker-score {
+            font-size: 60px;
+            font-weight: bold;
+            margin: 30px;
+        }
+
+        .big-click-button {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: none;
+            background: #2563eb;
+            color: white;
+            font-size: 25px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .big-click-button:active {
+            transform: scale(0.95);
+        }
+
+        /* =========================
+           REACTION GAME
+        ========================= */
+
+        .reaction-box {
+            width: 100%;
+            max-width: 500px;
+            height: 250px;
+            margin: 20px auto;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #374151;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .reaction-box.ready {
+            background: #dc2626;
+        }
+
+        .reaction-box.go {
+            background: #16a34a;
+        }
+
+        /* =========================
+           GUESS GAME
+        ========================= */
+
+        .guess-input {
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #555;
+            background: #1f2937;
+            color: white;
+            width: 150px;
+            margin: 10px;
+        }
+
+        /* =========================
+           MEMORY GAME
+        ========================= */
+
+        .memory-grid {
+            max-width: 450px;
+            margin: 20px auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .memory-card {
+            height: 90px;
+            border: none;
+            border-radius: 10px;
+            background: #374151;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+        .memory-card.flipped {
+            background: #2563eb;
+        }
+
+        /* =========================
+           SNAKE
+        ========================= */
+
+        #snakeCanvas {
+            background: #050505;
+            border: 2px solid #374151;
+            max-width: 100%;
+        }
+
+        /* MOBILE */
+        @media (max-width: 700px) {
+
+            .games-dropdown-menu {
+                width: 90vw;
+                right: -40px;
+            }
+
+            .games-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .game-area {
+                padding: 15px;
+            }
+
+            .play-game-box {
+                padding: 20px;
+            }
+
+            .memory-card {
+                height: 65px;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -27,9 +329,206 @@
     </div>
 
     <nav>
-        <a href="#home">Home</a>
-        <a href="#tools">Tools</a>
-        <a href="#about">About</a>
+
+        <a href="#home">
+            Home
+        </a>
+
+        <a href="#tools">
+            Tools
+        </a>
+
+        <!-- NEW GAMES DROPDOWN -->
+        <div class="games-dropdown">
+
+            <button
+                class="games-dropdown-button"
+                onclick="toggleGamesMenu()"
+            >
+                🎮 Games ▾
+            </button>
+
+            <div
+                class="games-dropdown-menu"
+                id="gamesDropdownMenu"
+            >
+
+                <h3 class="games-dropdown-title">
+                    🎮 Play Games
+                </h3>
+
+                <div class="games-grid">
+
+                    <button
+                        class="game-card"
+                        onclick="openGame('clicker')"
+                    >
+                        <span class="game-card-icon">👆</span>
+                        <span class="game-card-name">
+                            Clicker
+                        </span>
+                    </button>
+
+                    <button
+                        class="game-card"
+                        onclick="openGame('reaction')"
+                    >
+                        <span class="game-card-icon">⚡</span>
+                        <span class="game-card-name">
+                            Reaction
+                        </span>
+                    </button>
+
+                    <button
+                        class="game-card"
+                        onclick="openGame('guess')"
+                    >
+                        <span class="game-card-icon">🔢</span>
+                        <span class="game-card-name">
+                            Number Guess
+                        </span>
+                    </button>
+
+                    <button
+                        class="game-card"
+                        onclick="openGame('memory')"
+                    >
+                        <span class="game-card-icon">🧠</span>
+                        <span class="game-card-name">
+                            Memory
+                        </span>
+                    </button>
+
+                    <button
+                        class="game-card"
+                        onclick="openGame('snake')"
+                    >
+                        <span class="game-card-icon">🐍</span>
+                        <span class="game-card-name">
+                            Snake
+                        </span>
+                    </button>
+
+                    <button
+                        class="game-card"
+                        onclick="openGame('comingsoon1')"
+                    >
+                        <span class="game-card-icon">🚀</span>
+                        <span class="game-card-name">
+                            Coming Soon
+                        </span>
+                    </button>
+
+                    <button
+                        class="game-card"
+                        onclick="openGame('comingsoon2')"
+                    >
+                        <span class="game-card-icon">🏆</span>
+                        <span class="game-card-name">
+                            Coming Soon
+                        </span>
+                    </button>
+
+                    <button
+                        class="game-card"
+                        onclick="openGame('comingsoon3')"
+                    >
+                        <span class="game-card-icon">🎯</span>
+                        <span class="game-card-name">
+                            Coming Soon
+                        </span>
+                    </button>
+
+                    <button
+                        class="game-card"
+                        onclick="openGame('comingsoon4')"
+                    >
+                        <span class="game-card-icon">🕹️</span>
+                        <span class="game-card-name">
+                            Coming Soon
+                        </span>
+                    </button>
+
+                    <button
+                        class="game-card"
+                        onclick="openGame('comingsoon5')"
+                    >
+                        <span class="game-card-icon">👾</span>
+                        <span class="game-card-name">
+                            Coming Soon
+                        </span>
+                    </button>
+
+                    <button
+                        class="game-card"
+                        onclick="openGame('comingsoon6')"
+                    >
+                        <span class="game-card-icon">💥</span>
+                        <span class="game-card-name">
+                            Coming Soon
+                        </span>
+                    </button>
+
+                    <button
+                        class="game-card"
+                        onclick="openGame('comingsoon7')"
+                    >
+                        <span class="game-card-icon">🔥</span>
+                        <span class="game-card-name">
+                            Coming Soon
+                        </span>
+                    </button>
+
+                    <button
+                        class="game-card"
+                        onclick="openGame('comingsoon8')"
+                    >
+                        <span class="game-card-icon">⭐</span>
+                        <span class="game-card-name">
+                            Coming Soon
+                        </span>
+                    </button>
+
+                    <button
+                        class="game-card"
+                        onclick="openGame('comingsoon9')"
+                    >
+                        <span class="game-card-icon">🎲</span>
+                        <span class="game-card-name">
+                            Coming Soon
+                        </span>
+                    </button>
+
+                    <button
+                        class="game-card"
+                        onclick="openGame('comingsoon10')"
+                    >
+                        <span class="game-card-icon">⚔️</span>
+                        <span class="game-card-name">
+                            Coming Soon
+                        </span>
+                    </button>
+
+                    <button
+                        class="game-card"
+                        onclick="openGame('comingsoon11')"
+                    >
+                        <span class="game-card-icon">🏎️</span>
+                        <span class="game-card-name">
+                            Coming Soon
+                        </span>
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <a href="#about">
+            About
+        </a>
+
     </nav>
 
 </header>
@@ -289,9 +788,7 @@
     </div>
 
 
-    <!-- =========================
-         COUNTDOWN
-    ========================= -->
+    <!-- COUNTDOWN -->
 
     <div
         class="tool-card"
@@ -337,15 +834,11 @@
 
             <div class="countdown-buttons">
 
-                <button
-                    onclick="startCountdown()"
-                >
+                <button onclick="startCountdown()">
                     Start Countdown
                 </button>
 
-                <button
-                    onclick="resetCountdown()"
-                >
+                <button onclick="resetCountdown()">
                     Reset
                 </button>
 
@@ -362,9 +855,7 @@
     </div>
 
 
-    <!-- =========================
-         RANDOM GAME
-    ========================= -->
+    <!-- RANDOM GAME -->
 
     <div
         class="tool-card"
@@ -456,21 +947,15 @@
 
             </select>
 
-
-            <button
-                onclick="randomGame()"
-            >
+            <button onclick="randomGame()">
                 Pick A Game
             </button>
-
 
             <div id="randomResult">
 
                 <div class="result-placeholder">
 
-                    <span>
-                        🎲
-                    </span>
+                    <span>🎲</span>
 
                     <strong>
                         Ready?
@@ -490,9 +975,7 @@
     </div>
 
 
-    <!-- =========================
-         GAME CALCULATOR
-    ========================= -->
+    <!-- GAME CALCULATOR -->
 
     <div
         class="tool-card"
@@ -553,9 +1036,7 @@
                     placeholder="XP per match"
                 >
 
-                <button
-                    onclick="calculateXP()"
-                >
+                <button onclick="calculateXP()">
                     Calculate
                 </button>
 
@@ -579,9 +1060,7 @@
                     placeholder="Deaths"
                 >
 
-                <button
-                    onclick="calculateKD()"
-                >
+                <button onclick="calculateKD()">
                     Calculate
                 </button>
 
@@ -605,9 +1084,7 @@
                     placeholder="Games played"
                 >
 
-                <button
-                    onclick="calculateWinRate()"
-                >
+                <button onclick="calculateWinRate()">
                     Calculate
                 </button>
 
@@ -637,9 +1114,7 @@
                     placeholder="XP per match"
                 >
 
-                <button
-                    onclick="calculateMatches()"
-                >
+                <button onclick="calculateMatches()">
                     Calculate
                 </button>
 
@@ -655,9 +1130,7 @@
     </div>
 
 
-    <!-- =========================
-         SENSITIVITY
-    ========================= -->
+    <!-- SENSITIVITY -->
 
     <div
         class="tool-card"
@@ -697,9 +1170,7 @@
                 placeholder="New DPI"
             >
 
-            <button
-                onclick="calculateSensitivity()"
-            >
+            <button onclick="calculateSensitivity()">
                 Calculate
             </button>
 
@@ -712,9 +1183,7 @@
     </div>
 
 
-    <!-- =========================
-         SESSION TIMER
-    ========================= -->
+    <!-- SESSION TIMER -->
 
     <div
         class="tool-card"
@@ -740,21 +1209,15 @@
                 00:00:00
             </div>
 
-            <button
-                onclick="startSession()"
-            >
+            <button onclick="startSession()">
                 Start
             </button>
 
-            <button
-                onclick="stopSession()"
-            >
+            <button onclick="stopSession()">
                 Stop
             </button>
 
-            <button
-                onclick="resetSession()"
-            >
+            <button onclick="resetSession()">
                 Reset
             </button>
 
@@ -763,9 +1226,7 @@
     </div>
 
 
-    <!-- =========================
-         RANDOM MODE
-    ========================= -->
+    <!-- RANDOM MODE -->
 
     <div
         class="tool-card"
@@ -787,9 +1248,7 @@
 
         <div class="mode-box">
 
-            <button
-                onclick="randomMode()"
-            >
+            <button onclick="randomMode()">
                 Randomise
             </button>
 
@@ -802,9 +1261,7 @@
     </div>
 
 
-    <!-- =========================
-         STATS TRACKER
-    ========================= -->
+    <!-- STATS TRACKER -->
 
     <div
         class="tool-card"
@@ -840,9 +1297,7 @@
                 min="0"
             >
 
-            <button
-                onclick="calculateStats()"
-            >
+            <button onclick="calculateStats()">
                 Calculate
             </button>
 
@@ -855,9 +1310,7 @@
     </div>
 
 
-    <!-- =========================
-         FAVORITES
-    ========================= -->
+    <!-- FAVORITES -->
 
     <div
         class="tool-card favorites-card"
@@ -946,7 +1399,9 @@
 </footer>
 
 
-<!-- NOTIFICATION -->
+<!-- =========================
+     NOTIFICATION
+========================= -->
 
 <div
     id="notification"
@@ -962,7 +1417,1074 @@
 </div>
 
 
+<!-- =====================================================
+     FULLSCREEN GAME SYSTEM
+===================================================== -->
+
+<div
+    id="gameFullscreen"
+    class="game-fullscreen"
+>
+
+    <div class="game-fullscreen-header">
+
+        <div
+            id="fullscreenGameTitle"
+            class="game-fullscreen-title"
+        >
+            🎮 Game
+        </div>
+
+        <button
+            class="exit-game-button"
+            onclick="closeGame()"
+        >
+            ✕ EXIT GAME
+        </button>
+
+    </div>
+
+
+    <div class="game-area">
+
+        <!-- CLICKER -->
+
+        <div
+            id="game-clicker"
+            class="play-game-box"
+            style="display:none;"
+        >
+
+            <h2>
+                👆 Clicker
+            </h2>
+
+            <p>
+                Click as many times as you can!
+            </p>
+
+            <div
+                id="clickerScore"
+                class="clicker-score"
+            >
+                0
+            </div>
+
+            <button
+                class="big-click-button"
+                onclick="clickGame()"
+            >
+                CLICK!
+            </button>
+
+            <br>
+
+            <button
+                class="game-button"
+                onclick="resetClicker()"
+            >
+                Reset
+            </button>
+
+        </div>
+
+
+        <!-- REACTION -->
+
+        <div
+            id="game-reaction"
+            class="play-game-box"
+            style="display:none;"
+        >
+
+            <h2>
+                ⚡ Reaction Test
+            </h2>
+
+            <p>
+                Wait for green, then click as fast as possible.
+            </p>
+
+            <div
+                id="reactionBox"
+                class="reaction-box"
+                onclick="reactionClick()"
+            >
+                Click START
+            </div>
+
+            <button
+                class="game-button"
+                onclick="startReaction()"
+            >
+                START
+            </button>
+
+            <h3 id="reactionResult">
+                Your time will appear here.
+            </h3>
+
+        </div>
+
+
+        <!-- NUMBER GUESS -->
+
+        <div
+            id="game-guess"
+            class="play-game-box"
+            style="display:none;"
+        >
+
+            <h2>
+                🔢 Number Guess
+            </h2>
+
+            <p>
+                Guess the number between 1 and 100.
+            </p>
+
+            <input
+                id="guessInput"
+                class="guess-input"
+                type="number"
+                min="1"
+                max="100"
+                placeholder="Your guess"
+            >
+
+            <button
+                class="game-button"
+                onclick="makeGuess()"
+            >
+                Guess
+            </button>
+
+            <button
+                class="game-button"
+                onclick="resetGuess()"
+            >
+                New Game
+            </button>
+
+            <h3 id="guessResult">
+                Good luck!
+            </h3>
+
+            <p id="guessAttempts">
+                Attempts: 0
+            </p>
+
+        </div>
+
+
+        <!-- MEMORY -->
+
+        <div
+            id="game-memory"
+            class="play-game-box"
+            style="display:none;"
+        >
+
+            <h2>
+                🧠 Memory
+            </h2>
+
+            <p>
+                Match all the pairs.
+            </p>
+
+            <div
+                id="memoryGrid"
+                class="memory-grid"
+            ></div>
+
+            <h3 id="memoryResult">
+                Matches: 0
+            </h3>
+
+            <button
+                class="game-button"
+                onclick="startMemory()"
+            >
+                New Game
+            </button>
+
+        </div>
+
+
+        <!-- SNAKE -->
+
+        <div
+            id="game-snake"
+            class="play-game-box"
+            style="display:none;"
+        >
+
+            <h2>
+                🐍 Snake
+            </h2>
+
+            <p>
+                Use the arrow keys to move.
+            </p>
+
+            <canvas
+                id="snakeCanvas"
+                width="400"
+                height="400"
+            ></canvas>
+
+            <h3 id="snakeScore">
+                Score: 0
+            </h3>
+
+            <button
+                class="game-button"
+                onclick="startSnake()"
+            >
+                START / RESTART
+            </button>
+
+        </div>
+
+
+        <!-- COMING SOON -->
+
+        <div
+            id="game-comingsoon"
+            class="play-game-box"
+            style="display:none;"
+        >
+
+            <h2>
+                🚀 Coming Soon
+            </h2>
+
+            <p>
+                This game is being added to Game Tools.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     NEW GAMES JAVASCRIPT
+===================================================== -->
+
+<script>
+
+    /* =========================
+       GAMES DROPDOWN
+    ========================= */
+
+    function toggleGamesMenu() {
+
+        const menu =
+            document.getElementById("gamesDropdownMenu");
+
+        menu.classList.toggle("show");
+    }
+
+
+    document.addEventListener("click", function(event) {
+
+        const dropdown =
+            document.querySelector(".games-dropdown");
+
+        if (
+            dropdown &&
+            !dropdown.contains(event.target)
+        ) {
+
+            document
+                .getElementById("gamesDropdownMenu")
+                .classList.remove("show");
+
+        }
+
+    });
+
+
+    /* =========================
+       OPEN GAME
+    ========================= */
+
+    function openGame(gameName) {
+
+        const fullscreen =
+            document.getElementById("gameFullscreen");
+
+        document
+            .querySelectorAll(".play-game-box")
+            .forEach(function(game) {
+
+                game.style.display = "none";
+
+            });
+
+
+        let title = "🎮 Game";
+
+        if (gameName === "clicker") {
+
+            document.getElementById("game-clicker")
+                .style.display = "block";
+
+            title = "👆 Clicker";
+
+        }
+
+        else if (gameName === "reaction") {
+
+            document.getElementById("game-reaction")
+                .style.display = "block";
+
+            title = "⚡ Reaction Test";
+
+        }
+
+        else if (gameName === "guess") {
+
+            document.getElementById("game-guess")
+                .style.display = "block";
+
+            resetGuess();
+
+            title = "🔢 Number Guess";
+
+        }
+
+        else if (gameName === "memory") {
+
+            document.getElementById("game-memory")
+                .style.display = "block";
+
+            startMemory();
+
+            title = "🧠 Memory";
+
+        }
+
+        else if (gameName === "snake") {
+
+            document.getElementById("game-snake")
+                .style.display = "block";
+
+            title = "🐍 Snake";
+
+        }
+
+        else {
+
+            document.getElementById("game-comingsoon")
+                .style.display = "block";
+
+            title = "🚀 Coming Soon";
+
+        }
+
+
+        document
+            .getElementById("fullscreenGameTitle")
+            .textContent = title;
+
+
+        document
+            .getElementById("gamesDropdownMenu")
+            .classList.remove("show");
+
+
+        fullscreen.classList.add("active");
+
+        document.body.style.overflow = "hidden";
+    }
+
+
+    /* =========================
+       CLOSE GAME
+    ========================= */
+
+    function closeGame() {
+
+        document
+            .getElementById("gameFullscreen")
+            .classList.remove("active");
+
+        document.body.style.overflow = "";
+
+        if (typeof stopSnake === "function") {
+            stopSnake();
+        }
+    }
+
+
+    /* =========================
+       ESCAPE KEY
+    ========================= */
+
+    document.addEventListener("keydown", function(event) {
+
+        if (
+            event.key === "Escape" &&
+            document
+                .getElementById("gameFullscreen")
+                .classList.contains("active")
+        ) {
+
+            closeGame();
+
+        }
+
+    });
+
+
+    /* =========================
+       CLICKER
+    ========================= */
+
+    let clickerScore = 0;
+
+    function clickGame() {
+
+        clickerScore++;
+
+        document
+            .getElementById("clickerScore")
+            .textContent = clickerScore;
+
+    }
+
+
+    function resetClicker() {
+
+        clickerScore = 0;
+
+        document
+            .getElementById("clickerScore")
+            .textContent = "0";
+
+    }
+
+
+    /* =========================
+       REACTION GAME
+    ========================= */
+
+    let reactionStartTime = 0;
+    let reactionTimeout = null;
+    let reactionWaiting = false;
+    let reactionCanClick = false;
+
+    function startReaction() {
+
+        const box =
+            document.getElementById("reactionBox");
+
+        clearTimeout(reactionTimeout);
+
+        reactionWaiting = true;
+        reactionCanClick = false;
+
+        box.className = "reaction-box ready";
+        box.textContent = "WAIT...";
+
+        document
+            .getElementById("reactionResult")
+            .textContent = "Wait for green!";
+
+
+        const delay =
+            Math.floor(Math.random() * 3000) + 1500;
+
+
+        reactionTimeout = setTimeout(function() {
+
+            reactionWaiting = false;
+            reactionCanClick = true;
+
+            reactionStartTime = performance.now();
+
+            box.className = "reaction-box go";
+            box.textContent = "CLICK NOW!";
+
+        }, delay);
+
+    }
+
+
+    function reactionClick() {
+
+        const box =
+            document.getElementById("reactionBox");
+
+
+        if (reactionCanClick) {
+
+            const time =
+                Math.round(
+                    performance.now() -
+                    reactionStartTime
+                );
+
+
+            document
+                .getElementById("reactionResult")
+                .textContent =
+                "Your reaction time: " +
+                time +
+                " ms";
+
+
+            box.className = "reaction-box";
+            box.textContent = "Click START to try again.";
+
+            reactionCanClick = false;
+
+        }
+
+        else if (reactionWaiting) {
+
+            clearTimeout(reactionTimeout);
+
+            reactionWaiting = false;
+
+            box.className = "reaction-box";
+            box.textContent = "Too early!";
+
+            document
+                .getElementById("reactionResult")
+                .textContent =
+                "You clicked too early. Try again.";
+
+        }
+
+    }
+
+
+    /* =========================
+       NUMBER GUESS
+    ========================= */
+
+    let secretNumber = 0;
+    let guessAttempts = 0;
+
+    function resetGuess() {
+
+        secretNumber =
+            Math.floor(Math.random() * 100) + 1;
+
+        guessAttempts = 0;
+
+        document
+            .getElementById("guessResult")
+            .textContent =
+            "I'm thinking of a number...";
+
+        document
+            .getElementById("guessAttempts")
+            .textContent =
+            "Attempts: 0";
+
+        document
+            .getElementById("guessInput")
+            .value = "";
+
+    }
+
+
+    function makeGuess() {
+
+        const input =
+            document.getElementById("guessInput");
+
+        const guess =
+            Number(input.value);
+
+
+        if (
+            !guess ||
+            guess < 1 ||
+            guess > 100
+        ) {
+
+            document
+                .getElementById("guessResult")
+                .textContent =
+                "Enter a number from 1 to 100.";
+
+            return;
+        }
+
+
+        guessAttempts++;
+
+
+        document
+            .getElementById("guessAttempts")
+            .textContent =
+            "Attempts: " +
+            guessAttempts;
+
+
+        if (guess === secretNumber) {
+
+            document
+                .getElementById("guessResult")
+                .textContent =
+                "🎉 Correct! You got it!";
+
+        }
+
+        else if (guess < secretNumber) {
+
+            document
+                .getElementById("guessResult")
+                .textContent =
+                "⬆️ Too low!";
+
+        }
+
+        else {
+
+            document
+                .getElementById("guessResult")
+                .textContent =
+                "⬇️ Too high!";
+
+        }
+
+    }
+
+
+    /* =========================
+       MEMORY GAME
+    ========================= */
+
+    let memoryFirst = null;
+    let memorySecond = null;
+    let memoryLock = false;
+    let memoryMatches = 0;
+
+    const memorySymbols = [
+        "🎮",
+        "🎮",
+        "⚽",
+        "⚽",
+        "🚀",
+        "🚀",
+        "🔥",
+        "🔥",
+        "⭐",
+        "⭐",
+        "👾",
+        "👾",
+        "🐍",
+        "🐍",
+        "🎯",
+        "🎯"
+    ];
+
+
+    function startMemory() {
+
+        const grid =
+            document.getElementById("memoryGrid");
+
+        grid.innerHTML = "";
+
+        memoryFirst = null;
+        memorySecond = null;
+        memoryLock = false;
+        memoryMatches = 0;
+
+
+        document
+            .getElementById("memoryResult")
+            .textContent =
+            "Matches: 0";
+
+
+        const shuffled =
+            [...memorySymbols]
+            .sort(() => Math.random() - 0.5);
+
+
+        shuffled.forEach(function(symbol) {
+
+            const card =
+                document.createElement("button");
+
+            card.className = "memory-card";
+
+            card.textContent = "?";
+
+            card.dataset.symbol = symbol;
+
+            card.onclick =
+                function() {
+
+                    flipMemoryCard(card);
+
+                };
+
+
+            grid.appendChild(card);
+
+        });
+
+    }
+
+
+    function flipMemoryCard(card) {
+
+        if (
+            memoryLock ||
+            card === memoryFirst ||
+            card.classList.contains("flipped")
+        ) {
+
+            return;
+
+        }
+
+
+        card.classList.add("flipped");
+
+        card.textContent =
+            card.dataset.symbol;
+
+
+        if (!memoryFirst) {
+
+            memoryFirst = card;
+
+            return;
+
+        }
+
+
+        memorySecond = card;
+
+        memoryLock = true;
+
+
+        if (
+            memoryFirst.dataset.symbol ===
+            memorySecond.dataset.symbol
+        ) {
+
+            memoryMatches++;
+
+            memoryFirst = null;
+            memorySecond = null;
+            memoryLock = false;
+
+
+            document
+                .getElementById("memoryResult")
+                .textContent =
+                "Matches: " +
+                memoryMatches;
+
+
+            if (memoryMatches === 8) {
+
+                document
+                    .getElementById("memoryResult")
+                    .textContent =
+                    "🏆 You matched everything!";
+
+            }
+
+        }
+
+        else {
+
+            setTimeout(function() {
+
+                memoryFirst.classList.remove("flipped");
+                memorySecond.classList.remove("flipped");
+
+                memoryFirst.textContent = "?";
+                memorySecond.textContent = "?";
+
+                memoryFirst = null;
+                memorySecond = null;
+
+                memoryLock = false;
+
+            }, 700);
+
+        }
+
+    }
+
+
+    /* =========================
+       SNAKE
+    ========================= */
+
+    const snakeCanvas =
+        document.getElementById("snakeCanvas");
+
+    const snakeCtx =
+        snakeCanvas.getContext("2d");
+
+    const snakeSize = 20;
+
+    let snake = [];
+    let snakeFood = {};
+    let snakeDirection = "right";
+    let snakeRunning = false;
+    let snakeInterval = null;
+    let snakePoints = 0;
+
+
+    function startSnake() {
+
+        clearInterval(snakeInterval);
+
+        snake = [
+            { x: 200, y: 200 },
+            { x: 180, y: 200 },
+            { x: 160, y: 200 }
+        ];
+
+        snakeDirection = "right";
+        snakePoints = 0;
+        snakeRunning = true;
+
+        createSnakeFood();
+
+        updateSnakeScore();
+
+        drawSnake();
+
+        snakeInterval =
+            setInterval(
+                moveSnake,
+                120
+            );
+
+    }
+
+
+    function stopSnake() {
+
+        clearInterval(snakeInterval);
+
+        snakeRunning = false;
+
+    }
+
+
+    function createSnakeFood() {
+
+        snakeFood = {
+
+            x:
+                Math.floor(
+                    Math.random() *
+                    (snakeCanvas.width / snakeSize)
+                ) * snakeSize,
+
+            y:
+                Math.floor(
+                    Math.random() *
+                    (snakeCanvas.height / snakeSize)
+                ) * snakeSize
+
+        };
+
+    }
+
+
+    function moveSnake() {
+
+        if (!snakeRunning) {
+            return;
+        }
+
+
+        const head =
+            { ...snake[0] };
+
+
+        if (snakeDirection === "up") {
+            head.y -= snakeSize;
+        }
+
+        if (snakeDirection === "down") {
+            head.y += snakeSize;
+        }
+
+        if (snakeDirection === "left") {
+            head.x -= snakeSize;
+        }
+
+        if (snakeDirection === "right") {
+            head.x += snakeSize;
+        }
+
+
+        if (
+            head.x < 0 ||
+            head.x >= snakeCanvas.width ||
+            head.y < 0 ||
+            head.y >= snakeCanvas.height ||
+            snake.some(
+                segment =>
+                    segment.x === head.x &&
+                    segment.y === head.y
+            )
+        ) {
+
+            snakeGameOver();
+
+            return;
+
+        }
+
+
+        snake.unshift(head);
+
+
+        if (
+            head.x === snakeFood.x &&
+            head.y === snakeFood.y
+        ) {
+
+            snakePoints++;
+
+            createSnakeFood();
+
+            updateSnakeScore();
+
+        }
+
+        else {
+
+            snake.pop();
+
+        }
+
+
+        drawSnake();
+
+    }
+
+
+    function drawSnake() {
+
+        snakeCtx.clearRect(
+            0,
+            0,
+            snakeCanvas.width,
+            snakeCanvas.height
+        );
+
+
+        snakeCtx.fillStyle = "#ef4444";
+
+        snakeCtx.fillRect(
+            snakeFood.x,
+            snakeFood.y,
+            snakeSize,
+            snakeSize
+        );
+
+
+        snakeCtx.fillStyle = "#22c55e";
+
+        snake.forEach(function(segment) {
+
+            snakeCtx.fillRect(
+                segment.x,
+                segment.y,
+                snakeSize - 2,
+                snakeSize - 2
+            );
+
+        });
+
+    }
+
+
+    function snakeGameOver() {
+
+        stopSnake();
+
+        snakeCtx.fillStyle = "white";
+
+        snakeCtx.font = "28px Arial";
+
+        snakeCtx.textAlign = "center";
+
+        snakeCtx.fillText(
+            "GAME OVER",
+            snakeCanvas.width / 2,
+            snakeCanvas.height / 2
+        );
+
+    }
+
+
+    function updateSnakeScore() {
+
+        document
+            .getElementById("snakeScore")
+            .textContent =
+            "Score: " +
+            snakePoints;
+
+    }
+
+
+    document.addEventListener(
+        "keydown",
+        function(event) {
+
+            if (
+                event.key === "ArrowUp" &&
+                snakeDirection !== "down"
+            ) {
+                snakeDirection = "up";
+            }
+
+            if (
+                event.key === "ArrowDown" &&
+                snakeDirection !== "up"
+            ) {
+                snakeDirection = "down";
+            }
+
+            if (
+                event.key === "ArrowLeft" &&
+                snakeDirection !== "right"
+            ) {
+                snakeDirection = "left";
+            }
+
+            if (
+                event.key === "ArrowRight" &&
+                snakeDirection !== "left"
+            ) {
+                snakeDirection = "right";
+            }
+
+        }
+    );
+
+</script>
+
+
+<!-- YOUR EXISTING SCRIPT -->
 <script src="script.js"></script>
 
 </body>
 </html>
+```
