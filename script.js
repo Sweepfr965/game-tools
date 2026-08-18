@@ -6,17 +6,17 @@
 
 /* =========================================================
    NOTIFICATIONS
-   ========================================================= */
+========================================================= */
 
 function showNotification(message, icon = "✓") {
     const notification = document.getElementById("notification");
-    const notificationText = document.getElementById("notificationText");
-    const notificationIcon = document.getElementById("notificationIcon");
+    const text = document.getElementById("notificationText");
+    const iconElement = document.getElementById("notificationIcon");
 
     if (!notification) return;
 
-    notificationText.textContent = message;
-    notificationIcon.textContent = icon;
+    if (text) text.textContent = message;
+    if (iconElement) iconElement.textContent = icon;
 
     notification.classList.add("show");
 
@@ -28,7 +28,7 @@ function showNotification(message, icon = "✓") {
 
 /* =========================================================
    COUNTDOWN
-   ========================================================= */
+========================================================= */
 
 let countdownInterval = null;
 let countdownSeconds = 0;
@@ -43,8 +43,8 @@ function startCountdown() {
 
     const eventName = eventInput.value.trim() || "Event";
 
-    let minutes = parseInt(minutesInput.value) || 0;
-    let seconds = parseInt(secondsInput.value) || 0;
+    const minutes = parseInt(minutesInput.value) || 0;
+    const seconds = parseInt(secondsInput.value) || 0;
 
     countdownSeconds = (minutes * 60) + seconds;
 
@@ -102,7 +102,6 @@ function resetCountdown() {
     document.getElementById("secondsInput").value = "";
 
     document.getElementById("eventName").textContent = "";
-
     document.getElementById("timer").textContent = "00:00";
 
     showNotification("Countdown reset.", "↻");
@@ -110,160 +109,39 @@ function resetCountdown() {
 
 
 /* =========================================================
-   RANDOM GAMES
-   ========================================================= */
+   RANDOM GAME
+========================================================= */
 
 const games = [
 
-    {
-        name: "Minecraft",
-        genre: "sandbox",
-        platforms: ["pc", "playstation", "xbox", "switch", "mobile"],
-        icon: "⛏️"
-    },
+    { name: "Minecraft", genre: "sandbox", platforms: ["pc","playstation","xbox","switch","mobile"], icon: "⛏️" },
+    { name: "Fortnite", genre: "shooter", platforms: ["pc","playstation","xbox","switch","mobile"], icon: "🔫" },
+    { name: "Rocket League", genre: "sports", platforms: ["pc","playstation","xbox","switch"], icon: "🚗" },
+    { name: "Grand Theft Auto V", genre: "action", platforms: ["pc","playstation","xbox"], icon: "🚘" },
+    { name: "The Legend of Zelda", genre: "adventure", platforms: ["switch"], icon: "🗡️" },
+    { name: "Terraria", genre: "sandbox", platforms: ["pc","playstation","xbox","switch","mobile"], icon: "🌳" },
+    { name: "Among Us", genre: "indie", platforms: ["pc","mobile","switch"], icon: "🚀" },
+    { name: "Apex Legends", genre: "shooter", platforms: ["pc","playstation","xbox"], icon: "🎯" },
+    { name: "Forza Horizon 5", genre: "racing", platforms: ["pc","xbox"], icon: "🏎️" },
+    { name: "EA Sports FC", genre: "sports", platforms: ["pc","playstation","xbox","switch"], icon: "⚽" },
+    { name: "Elden Ring", genre: "rpg", platforms: ["pc","playstation","xbox"], icon: "⚔️" },
+    { name: "Fall Guys", genre: "indie", platforms: ["pc","playstation","xbox","switch"], icon: "👑" },
+    { name: "Roblox", genre: "adventure", platforms: ["pc","xbox","mobile"], icon: "🧱" },
+    { name: "Call of Duty", genre: "shooter", platforms: ["pc","playstation","xbox","mobile"], icon: "💥" },
+    { name: "Need for Speed", genre: "racing", platforms: ["pc","playstation","xbox"], icon: "🏁" },
+    { name: "Stardew Valley", genre: "indie", platforms: ["pc","playstation","xbox","switch","mobile"], icon: "🌾" },
+    { name: "Pokémon", genre: "rpg", platforms: ["switch","mobile"], icon: "⚡" },
+    { name: "Overwatch 2", genre: "shooter", platforms: ["pc","playstation","xbox","switch"], icon: "🛡️" },
+    { name: "Hogwarts Legacy", genre: "adventure", platforms: ["pc","playstation","xbox","switch"], icon: "🪄" },
+    { name: "Cuphead", genre: "action", platforms: ["pc","playstation","xbox","switch"], icon: "☕" }
 
-    {
-        name: "Fortnite",
-        genre: "shooter",
-        platforms: ["pc", "playstation", "xbox", "switch", "mobile"],
-        icon: "🔫"
-    },
-
-    {
-        name: "Rocket League",
-        genre: "sports",
-        platforms: ["pc", "playstation", "xbox", "switch"],
-        icon: "🚗"
-    },
-
-    {
-        name: "Grand Theft Auto V",
-        genre: "action",
-        platforms: ["pc", "playstation", "xbox"],
-        icon: "🚘"
-    },
-
-    {
-        name: "The Legend of Zelda",
-        genre: "adventure",
-        platforms: ["switch"],
-        icon: "🗡️"
-    },
-
-    {
-        name: "Terraria",
-        genre: "sandbox",
-        platforms: ["pc", "playstation", "xbox", "switch", "mobile"],
-        icon: "🌳"
-    },
-
-    {
-        name: "Among Us",
-        genre: "indie",
-        platforms: ["pc", "mobile", "switch"],
-        icon: "🚀"
-    },
-
-    {
-        name: "Apex Legends",
-        genre: "shooter",
-        platforms: ["pc", "playstation", "xbox"],
-        icon: "🎯"
-    },
-
-    {
-        name: "Forza Horizon 5",
-        genre: "racing",
-        platforms: ["pc", "xbox"],
-        icon: "🏎️"
-    },
-
-    {
-        name: "EA Sports FC",
-        genre: "sports",
-        platforms: ["pc", "playstation", "xbox", "switch"],
-        icon: "⚽"
-    },
-
-    {
-        name: "Elden Ring",
-        genre: "rpg",
-        platforms: ["pc", "playstation", "xbox"],
-        icon: "⚔️"
-    },
-
-    {
-        name: "Fall Guys",
-        genre: "indie",
-        platforms: ["pc", "playstation", "xbox", "switch"],
-        icon: "👑"
-    },
-
-    {
-        name: "Roblox",
-        genre: "adventure",
-        platforms: ["pc", "xbox", "mobile"],
-        icon: "🧱"
-    },
-
-    {
-        name: "Call of Duty",
-        genre: "shooter",
-        platforms: ["pc", "playstation", "xbox", "mobile"],
-        icon: "💥"
-    },
-
-    {
-        name: "Need for Speed",
-        genre: "racing",
-        platforms: ["pc", "playstation", "xbox"],
-        icon: "🏁"
-    },
-
-    {
-        name: "Stardew Valley",
-        genre: "indie",
-        platforms: ["pc", "playstation", "xbox", "switch", "mobile"],
-        icon: "🌾"
-    },
-
-    {
-        name: "Pokémon",
-        genre: "rpg",
-        platforms: ["switch", "mobile"],
-        icon: "⚡"
-    },
-
-    {
-        name: "Overwatch 2",
-        genre: "shooter",
-        platforms: ["pc", "playstation", "xbox", "switch"],
-        icon: "🛡️"
-    },
-
-    {
-        name: "Hogwarts Legacy",
-        genre: "adventure",
-        platforms: ["pc", "playstation", "xbox", "switch"],
-        icon: "🪄"
-    },
-
-    {
-        name: "Cuphead",
-        genre: "action",
-        platforms: ["pc", "playstation", "xbox", "switch"],
-        icon: "☕"
-    }
 ];
 
 
 function randomGame() {
 
-    const platform =
-        document.getElementById("platformFilter").value;
-
-    const genre =
-        document.getElementById("genreFilter").value;
+    const platform = document.getElementById("platformFilter").value;
+    const genre = document.getElementById("genreFilter").value;
 
     const filteredGames = games.filter(game => {
 
@@ -278,10 +156,9 @@ function randomGame() {
         return platformMatch && genreMatch;
     });
 
-
     const result = document.getElementById("randomResult");
 
-    if (filteredGames.length === 0) {
+    if (!filteredGames.length) {
 
         result.innerHTML = `
             <div class="result-placeholder">
@@ -294,15 +171,14 @@ function randomGame() {
         return;
     }
 
-
     const game =
         filteredGames[
             Math.floor(Math.random() * filteredGames.length)
         ];
 
-
     result.innerHTML = `
         <div class="random-game-result">
+
             <span class="result-game-icon">
                 ${game.icon}
             </span>
@@ -315,9 +191,10 @@ function randomGame() {
                 ${game.genre.toUpperCase()}
             </small>
 
-            <button onclick="addFavorite('${game.name}')">
+            <button onclick="addFavorite('${game.name.replace(/'/g, "\\'")}')">
                 ⭐ Add To Favorites
             </button>
+
         </div>
     `;
 }
@@ -325,7 +202,7 @@ function randomGame() {
 
 /* =========================================================
    CALCULATORS
-   ========================================================= */
+========================================================= */
 
 function changeCalculator() {
 
@@ -387,10 +264,8 @@ function calculateKD() {
         return;
     }
 
-    const kd = kills / deaths;
-
     document.getElementById("xpResult").textContent =
-        `Your K/D is ${kd.toFixed(2)}.`;
+        `Your K/D is ${(kills / deaths).toFixed(2)}.`;
 }
 
 
@@ -402,7 +277,7 @@ function calculateWinRate() {
     const gamesPlayed =
         Number(document.getElementById("gamesPlayed").value);
 
-    if (gamesPlayed <= 0 || wins < 0) {
+    if (gamesPlayed <= 0 || wins < 0 || wins > gamesPlayed) {
         showNotification("Enter valid values.", "⚠️");
         return;
     }
@@ -431,11 +306,8 @@ function calculateMatches() {
         return;
     }
 
-    const remainingXP =
-        targetXP - currentXP;
-
     const matches =
-        Math.ceil(remainingXP / xpMatch);
+        Math.ceil((targetXP - currentXP) / xpMatch);
 
     document.getElementById("xpResult").textContent =
         `You need approximately ${matches} matches.`;
@@ -443,8 +315,8 @@ function calculateMatches() {
 
 
 /* =========================================================
-   SENSITIVITY CALCULATOR
-   ========================================================= */
+   SENSITIVITY
+========================================================= */
 
 function calculateSensitivity() {
 
@@ -462,7 +334,11 @@ function calculateSensitivity() {
         currentDPI <= 0 ||
         newDPI <= 0
     ) {
-        showNotification("Enter valid sensitivity values.", "⚠️");
+        showNotification(
+            "Enter valid sensitivity values.",
+            "⚠️"
+        );
+
         return;
     }
 
@@ -476,7 +352,7 @@ function calculateSensitivity() {
 
 /* =========================================================
    SESSION TIMER
-   ========================================================= */
+========================================================= */
 
 let sessionInterval = null;
 let sessionSeconds = 0;
@@ -493,7 +369,10 @@ function startSession() {
 
     }, 1000);
 
-    showNotification("Gaming session started.", "🎮");
+    showNotification(
+        "Gaming session started.",
+        "🎮"
+    );
 }
 
 
@@ -503,7 +382,10 @@ function stopSession() {
 
     sessionInterval = null;
 
-    showNotification("Gaming session stopped.", "⏸️");
+    showNotification(
+        "Gaming session stopped.",
+        "⏸️"
+    );
 }
 
 
@@ -516,7 +398,10 @@ function resetSession() {
 
     updateSessionTimer();
 
-    showNotification("Session reset.", "↻");
+    showNotification(
+        "Session reset.",
+        "↻"
+    );
 }
 
 
@@ -540,7 +425,7 @@ function updateSessionTimer() {
 
 /* =========================================================
    RANDOM MODE
-   ========================================================= */
+========================================================= */
 
 const challenges = [
 
@@ -554,6 +439,7 @@ const challenges = [
     "Play for one match without changing settings.",
     "Use the worst weapon you can find.",
     "Play with a friend and swap roles."
+
 ];
 
 
@@ -567,13 +453,16 @@ function randomMode() {
     document.getElementById("modeResult").textContent =
         challenge;
 
-    showNotification("Challenge selected!", "🎲");
+    showNotification(
+        "Challenge selected!",
+        "🎲"
+    );
 }
 
 
 /* =========================================================
    STATS TRACKER
-   ========================================================= */
+========================================================= */
 
 function calculateStats() {
 
@@ -584,15 +473,20 @@ function calculateStats() {
         Number(document.getElementById("trackerLosses").value);
 
     if (wins < 0 || losses < 0) {
-        showNotification("Enter valid stats.", "⚠️");
+        showNotification(
+            "Enter valid stats.",
+            "⚠️"
+        );
+
         return;
     }
 
-    const total =
-        wins + losses;
+    const total = wins + losses;
 
     const winRate =
-        total === 0 ? 0 : (wins / total) * 100;
+        total === 0
+            ? 0
+            : (wins / total) * 100;
 
     document.getElementById("trackerResult").textContent =
         `Matches: ${total} | Win Rate: ${winRate.toFixed(1)}%`;
@@ -601,16 +495,22 @@ function calculateStats() {
 
 /* =========================================================
    FAVORITES
-   ========================================================= */
+========================================================= */
 
 function getFavorites() {
 
     try {
+
         return JSON.parse(
-            localStorage.getItem("gameToolsFavorites")
+            localStorage.getItem(
+                "gameToolsFavorites"
+            )
         ) || [];
+
     } catch {
+
         return [];
+
     }
 }
 
@@ -654,7 +554,9 @@ function addFavorite(gameName) {
 function favoriteGameOfDay() {
 
     const name =
-        document.getElementById("gameOfDayName").textContent;
+        document.getElementById(
+            "gameOfDayName"
+        ).textContent;
 
     addFavorite(name);
 }
@@ -663,12 +565,16 @@ function favoriteGameOfDay() {
 function displayFavorites() {
 
     const list =
-        document.getElementById("favoritesList");
+        document.getElementById(
+            "favoritesList"
+        );
+
+    if (!list) return;
 
     const favorites =
         getFavorites();
 
-    if (favorites.length === 0) {
+    if (!favorites.length) {
 
         list.innerHTML = `
             <div class="empty-favorites">
@@ -680,16 +586,24 @@ function displayFavorites() {
         return;
     }
 
+    list.innerHTML =
+        favorites.map(game => `
 
-    list.innerHTML = favorites.map(game => `
-        <div class="favorite-item">
-            <span>⭐ ${game}</span>
+            <div class="favorite-item">
 
-            <button onclick="removeFavorite('${game}')">
-                ✕
-            </button>
-        </div>
-    `).join("");
+                <span>
+                    ⭐ ${game}
+                </span>
+
+                <button
+                    onclick="removeFavorite('${game.replace(/'/g, "\\'")}')"
+                >
+                    ✕
+                </button>
+
+            </div>
+
+        `).join("");
 }
 
 
@@ -728,7 +642,7 @@ function clearFavorites() {
 
 /* =========================================================
    TOOL SEARCH
-   ========================================================= */
+========================================================= */
 
 function searchTools() {
 
@@ -760,9 +674,9 @@ function searchTools() {
         } else {
 
             card.style.display = "none";
+
         }
     });
-
 
     document.getElementById("noResults").style.display =
         found === 0 ? "block" : "none";
@@ -771,7 +685,7 @@ function searchTools() {
 
 /* =========================================================
    GAME OF THE DAY
-   ========================================================= */
+========================================================= */
 
 const gameOfDayList = [
 
@@ -802,13 +716,13 @@ const gameOfDayList = [
         genre: "⛏️ Sandbox",
         platforms: "🎮 PC · Console · Mobile"
     }
+
 ];
 
 
 function updateGameOfDay() {
 
-    const today =
-        new Date();
+    const today = new Date();
 
     const index =
         (
@@ -835,654 +749,383 @@ function updateGameOfDay() {
 
 
 /* =========================================================
-   PLAY GAMES SYSTEM
-   =========================================================
-   
-   This creates the Games dropdown and 4-column game menu
-   automatically if the HTML section is not already present.
-   
-   ========================================================= */
+   PLAY GAMES - DROPDOWN
+========================================================= */
 
-const playableGames = [
+function toggleGamesMenu() {
 
-    {
-        name: "Snake",
-        icon: "🐍",
-        description: "Eat the food and grow as long as possible.",
-        game: "snake"
-    },
-
-    {
-        name: "Clicker",
-        icon: "🖱️",
-        description: "Click as fast as you can and build your score.",
-        game: "clicker"
-    },
-
-    {
-        name: "Guess Number",
-        icon: "🔢",
-        description: "Try to guess the secret number.",
-        game: "guess"
-    },
-
-    {
-        name: "Reaction",
-        icon: "⚡",
-        description: "Test how quickly you can react.",
-        game: "reaction"
-    },
-
-    {
-        name: "Memory",
-        icon: "🧠",
-        description: "Remember the matching cards.",
-        game: "memory"
-    }
-];
-
-
-function createGamesSection() {
-
-    if (document.getElementById("playGamesSection")) {
-        return;
-    }
-
-    const section =
-        document.createElement("section");
-
-    section.id =
-        "playGamesSection";
-
-    section.className =
-        "play-games-section";
-
-    section.innerHTML = `
-
-        <div class="section-heading">
-
-            <p class="section-label">
-                🎮 PLAY
-            </p>
-
-            <h2>
-                Play Games
-            </h2>
-
-            <p>
-                Take a break and play some games.
-            </p>
-
-        </div>
-
-
-        <button
-            class="games-dropdown-button"
-            onclick="toggleGamesDropdown()"
-        >
-            🎮 Games
-            <span id="gamesArrow">▼</span>
-        </button>
-
-
-        <div
-            id="gamesDropdown"
-            class="games-dropdown"
-        >
-
-            <div class="games-grid">
-
-                ${playableGames.map(game => `
-
-                    <button
-                        class="play-game-card"
-                        onclick="openPlayableGame('${game.game}')"
-                    >
-
-                        <span class="play-game-icon">
-                            ${game.icon}
-                        </span>
-
-                        <strong>
-                            ${game.name}
-                        </strong>
-
-                        <small>
-                            ${game.description}
-                        </small>
-
-                    </button>
-
-                `).join("")}
-
-            </div>
-
-        </div>
-
-    `;
-
-    const tools =
-        document.getElementById("tools");
-
-    if (tools) {
-        tools.parentNode.insertBefore(
-            section,
-            tools
+    const menu =
+        document.getElementById(
+            "gamesDropdownMenu"
         );
-    }
+
+    if (!menu) return;
+
+    menu.classList.toggle("show");
 }
 
 
-function toggleGamesDropdown() {
+/* Close dropdown when clicking elsewhere */
+
+document.addEventListener("click", function(event) {
 
     const dropdown =
-        document.getElementById("gamesDropdown");
+        document.querySelector(
+            ".games-dropdown"
+        );
 
-    const arrow =
-        document.getElementById("gamesArrow");
+    const menu =
+        document.getElementById(
+            "gamesDropdownMenu"
+        );
 
-    if (!dropdown) return;
+    if (
+        dropdown &&
+        menu &&
+        !dropdown.contains(event.target)
+    ) {
 
-    dropdown.classList.toggle("open");
+        menu.classList.remove("show");
 
-    if (dropdown.classList.contains("open")) {
-        arrow.textContent = "▲";
-    } else {
-        arrow.textContent = "▼";
     }
-}
+
+});
 
 
 /* =========================================================
-   GAME FULLSCREEN
-   ========================================================= */
+   OPEN GAME
+========================================================= */
 
-function openPlayableGame(gameType) {
+function openGame(gameName) {
 
-    let overlay =
-        document.getElementById("gameFullscreen");
-
-    if (!overlay) {
-
-        overlay =
-            document.createElement("div");
-
-        overlay.id =
-            "gameFullscreen";
-
-        overlay.className =
-            "game-fullscreen";
-
-        document.body.appendChild(overlay);
-    }
-
-    overlay.innerHTML = `
-
-        <button
-            class="exit-game-button"
-            onclick="closePlayableGame()"
-        >
-            ✕ Exit Game
-        </button>
-
-        <div
-            id="playGameContent"
-            class="play-game-content"
-        ></div>
-
-    `;
-
-    overlay.classList.add("active");
-
-    document.body.style.overflow = "hidden";
-
-    if (gameType === "snake") {
-        createSnakeGame();
-    }
-
-    if (gameType === "clicker") {
-        createClickerGame();
-    }
-
-    if (gameType === "guess") {
-        createGuessGame();
-    }
-
-    if (gameType === "reaction") {
-        createReactionGame();
-    }
-
-    if (gameType === "memory") {
-        createMemoryGame();
-    }
-}
-
-
-function closePlayableGame() {
-
-    const overlay =
-        document.getElementById("gameFullscreen");
-
-    if (!overlay) return;
-
-    overlay.classList.remove("active");
-
-    document.body.style.overflow = "";
-
-    if (window.currentGameInterval) {
-
-        clearInterval(
-            window.currentGameInterval
+    const fullscreen =
+        document.getElementById(
+            "gameFullscreen"
         );
 
-        window.currentGameInterval = null;
-    }
-}
+    if (!fullscreen) return;
 
+    document
+        .querySelectorAll(".play-game-box")
+        .forEach(game => {
 
-/* =========================================================
-   SNAKE GAME
-   ========================================================= */
-
-function createSnakeGame() {
-
-    const container =
-        document.getElementById("playGameContent");
-
-    container.innerHTML = `
-
-        <h2>🐍 Snake</h2>
-
-        <p>
-            Use the arrow keys to move.
-        </p>
-
-        <canvas
-            id="snakeCanvas"
-            width="400"
-            height="400"
-        ></canvas>
-
-        <h3>
-            Score: <span id="snakeScore">0</span>
-        </h3>
-
-    `;
-
-    const canvas =
-        document.getElementById("snakeCanvas");
-
-    const ctx =
-        canvas.getContext("2d");
-
-    const grid = 20;
-
-    let snake = [
-        { x: 200, y: 200 }
-    ];
-
-    let food = {
-        x: 100,
-        y: 100
-    };
-
-    let direction = {
-        x: grid,
-        y: 0
-    };
-
-    let score = 0;
-
-
-    document.onkeydown = function(event) {
-
-        if (
-            event.key === "ArrowUp" &&
-            direction.y === 0
-        ) {
-            direction = {
-                x: 0,
-                y: -grid
-            };
-        }
-
-        if (
-            event.key === "ArrowDown" &&
-            direction.y === 0
-        ) {
-            direction = {
-                x: 0,
-                y: grid
-            };
-        }
-
-        if (
-            event.key === "ArrowLeft" &&
-            direction.x === 0
-        ) {
-            direction = {
-                x: -grid,
-                y: 0
-            };
-        }
-
-        if (
-            event.key === "ArrowRight" &&
-            direction.x === 0
-        ) {
-            direction = {
-                x: grid,
-                y: 0
-            };
-        }
-    };
-
-
-    function gameLoop() {
-
-        const head = {
-            x: snake[0].x + direction.x,
-            y: snake[0].y + direction.y
-        };
-
-
-        if (
-            head.x < 0 ||
-            head.x >= canvas.width ||
-            head.y < 0 ||
-            head.y >= canvas.height
-        ) {
-
-            alert("Game Over! Score: " + score);
-
-            closePlayableGame();
-
-            return;
-        }
-
-
-        for (let part of snake) {
-
-            if (
-                head.x === part.x &&
-                head.y === part.y
-            ) {
-
-                alert("Game Over! Score: " + score);
-
-                closePlayableGame();
-
-                return;
-            }
-        }
-
-
-        snake.unshift(head);
-
-
-        if (
-            head.x === food.x &&
-            head.y === food.y
-        ) {
-
-            score++;
-
-            document.getElementById(
-                "snakeScore"
-            ).textContent = score;
-
-            food = {
-                x: Math.floor(
-                    Math.random() *
-                    (canvas.width / grid)
-                ) * grid,
-
-                y: Math.floor(
-                    Math.random() *
-                    (canvas.height / grid)
-                ) * grid
-            };
-
-        } else {
-
-            snake.pop();
-        }
-
-
-        ctx.clearRect(
-            0,
-            0,
-            canvas.width,
-            canvas.height
-        );
-
-
-        ctx.fillStyle = "lime";
-
-        snake.forEach(part => {
-
-            ctx.fillRect(
-                part.x,
-                part.y,
-                grid - 2,
-                grid - 2
-            );
+            game.style.display = "none";
 
         });
 
 
-        ctx.fillStyle = "red";
+    let title = "🎮 Game";
 
-        ctx.fillRect(
-            food.x,
-            food.y,
-            grid - 2,
-            grid - 2
-        );
+
+    if (gameName === "clicker") {
+
+        document.getElementById(
+            "game-clicker"
+        ).style.display = "block";
+
+        resetClicker();
+
+        title = "👆 Clicker";
+
     }
 
 
-    window.currentGameInterval =
-        setInterval(gameLoop, 100);
+    else if (gameName === "reaction") {
+
+        document.getElementById(
+            "game-reaction"
+        ).style.display = "block";
+
+        resetReaction();
+
+        title = "⚡ Reaction Test";
+
+    }
+
+
+    else if (gameName === "guess") {
+
+        document.getElementById(
+            "game-guess"
+        ).style.display = "block";
+
+        resetGuess();
+
+        title = "🔢 Number Guess";
+
+    }
+
+
+    else if (gameName === "memory") {
+
+        document.getElementById(
+            "game-memory"
+        ).style.display = "block";
+
+        startMemory();
+
+        title = "🧠 Memory";
+
+    }
+
+
+    else if (gameName === "snake") {
+
+        document.getElementById(
+            "game-snake"
+        ).style.display = "block";
+
+        resetSnakeCanvas();
+
+        title = "🐍 Snake";
+
+    }
+
+
+    else {
+
+        document.getElementById(
+            "game-comingsoon"
+        ).style.display = "block";
+
+        title = "🚀 Coming Soon";
+
+    }
+
+
+    document.getElementById(
+        "fullscreenGameTitle"
+    ).textContent = title;
+
+
+    const menu =
+        document.getElementById(
+            "gamesDropdownMenu"
+        );
+
+    if (menu) {
+        menu.classList.remove("show");
+    }
+
+
+    fullscreen.classList.add("active");
+
+    document.body.style.overflow = "hidden";
 }
+
+
+/* =========================================================
+   CLOSE GAME
+========================================================= */
+
+function closeGame() {
+
+    const fullscreen =
+        document.getElementById(
+            "gameFullscreen"
+        );
+
+    if (!fullscreen) return;
+
+    fullscreen.classList.remove("active");
+
+    document.body.style.overflow = "";
+
+    stopSnake();
+
+    clearTimeout(reactionTimeout);
+
+    reactionWaiting = false;
+    reactionCanClick = false;
+}
+
+
+/* =========================================================
+   ESC KEY
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        const fullscreen =
+            document.getElementById(
+                "gameFullscreen"
+            );
+
+        if (
+            event.key === "Escape" &&
+            fullscreen &&
+            fullscreen.classList.contains("active")
+        ) {
+
+            closeGame();
+
+        }
+
+    }
+);
 
 
 /* =========================================================
    CLICKER GAME
-   ========================================================= */
+========================================================= */
 
-function createClickerGame() {
+let clickerScore = 0;
 
-    const container =
-        document.getElementById("playGameContent");
 
-    let score = 0;
-    let time = 10;
+function clickGame() {
 
-    container.innerHTML = `
-
-        <h2>🖱️ Clicker</h2>
-
-        <h3>
-            Time:
-            <span id="clickTime">10</span>
-        </h3>
-
-        <h3>
-            Score:
-            <span id="clickScore">0</span>
-        </h3>
-
-        <button
-            id="bigClickButton"
-            class="big-game-button"
-        >
-            CLICK!
-        </button>
-
-    `;
-
+    clickerScore++;
 
     document.getElementById(
-        "bigClickButton"
-    ).onclick = function() {
-
-        if (time > 0) {
-
-            score++;
-
-            document.getElementById(
-                "clickScore"
-            ).textContent = score;
-        }
-    };
-
-
-    window.currentGameInterval =
-        setInterval(() => {
-
-            time--;
-
-            document.getElementById(
-                "clickTime"
-            ).textContent = time;
-
-            if (time <= 0) {
-
-                clearInterval(
-                    window.currentGameInterval
-                );
-
-                alert(
-                    "Time's up! Score: " +
-                    score
-                );
-            }
-
-        }, 1000);
+        "clickerScore"
+    ).textContent = clickerScore;
 }
 
 
-/* =========================================================
-   GUESS THE NUMBER
-   ========================================================= */
+function resetClicker() {
 
-function createGuessGame() {
+    clickerScore = 0;
 
-    const number =
-        Math.floor(
-            Math.random() * 100
-        ) + 1;
-
-    const container =
-        document.getElementById("playGameContent");
-
-    container.innerHTML = `
-
-        <h2>🔢 Guess The Number</h2>
-
-        <p>
-            Guess a number between 1 and 100.
-        </p>
-
-        <input
-            id="guessInput"
-            type="number"
-            min="1"
-            max="100"
-            placeholder="Your guess"
-        >
-
-        <button
-            onclick="makeGuess(${number})"
-        >
-            Guess
-        </button>
-
-        <p id="guessResult">
-            Good luck!
-        </p>
-
-    `;
-}
-
-
-function makeGuess(number) {
-
-    const input =
-        Number(
-            document.getElementById(
-                "guessInput"
-            ).value
-        );
-
-    const result =
+    const score =
         document.getElementById(
-            "guessResult"
+            "clickerScore"
         );
 
-
-    if (!input) {
-
-        result.textContent =
-            "Enter a number first.";
-
-        return;
-    }
-
-
-    if (input === number) {
-
-        result.textContent =
-            "🎉 Correct! You won!";
-
-    } else if (input < number) {
-
-        result.textContent =
-            "⬆️ Too low!";
-
-    } else {
-
-        result.textContent =
-            "⬇️ Too high!";
+    if (score) {
+        score.textContent = "0";
     }
 }
 
 
 /* =========================================================
    REACTION GAME
-   ========================================================= */
+========================================================= */
 
-function createReactionGame() {
-
-    const container =
-        document.getElementById("playGameContent");
-
-    container.innerHTML = `
-
-        <h2>⚡ Reaction Test</h2>
-
-        <p>
-            Click the button when it turns green.
-        </p>
-
-        <button
-            id="reactionButton"
-            class="reaction-button"
-        >
-            Wait...
-        </button>
-
-        <p id="reactionResult">
-            Get ready.
-        </p>
-
-    `;
+let reactionStartTime = 0;
+let reactionTimeout = null;
+let reactionWaiting = false;
+let reactionCanClick = false;
 
 
-    const button =
+function startReaction() {
+
+    const box =
         document.getElementById(
-            "reactionButton"
+            "reactionBox"
+        );
+
+    if (!box) return;
+
+    clearTimeout(reactionTimeout);
+
+    reactionWaiting = true;
+    reactionCanClick = false;
+
+    box.className =
+        "reaction-box ready";
+
+    box.textContent =
+        "WAIT...";
+
+    document.getElementById(
+        "reactionResult"
+    ).textContent =
+        "Wait for green!";
+
+
+    const delay =
+        Math.floor(
+            Math.random() * 3000
+        ) + 1500;
+
+
+    reactionTimeout =
+        setTimeout(() => {
+
+            reactionWaiting = false;
+            reactionCanClick = true;
+
+            reactionStartTime =
+                performance.now();
+
+            box.className =
+                "reaction-box go";
+
+            box.textContent =
+                "CLICK NOW!";
+
+        }, delay);
+}
+
+
+function reactionClick() {
+
+    const box =
+        document.getElementById(
+            "reactionBox"
+        );
+
+    if (!box) return;
+
+
+    if (reactionCanClick) {
+
+        const time =
+            Math.round(
+                performance.now() -
+                reactionStartTime
+            );
+
+        document.getElementById(
+            "reactionResult"
+        ).textContent =
+            "Your reaction time: " +
+            time +
+            " ms";
+
+        box.className =
+            "reaction-box";
+
+        box.textContent =
+            "Click START to try again.";
+
+        reactionCanClick = false;
+
+    }
+
+    else if (reactionWaiting) {
+
+        clearTimeout(reactionTimeout);
+
+        reactionWaiting = false;
+
+        box.className =
+            "reaction-box";
+
+        box.textContent =
+            "Too early!";
+
+        document.getElementById(
+            "reactionResult"
+        ).textContent =
+            "You clicked too early. Try again.";
+    }
+}
+
+
+function resetReaction() {
+
+    clearTimeout(reactionTimeout);
+
+    reactionWaiting = false;
+    reactionCanClick = false;
+    reactionStartTime = 0;
+
+    const box =
+        document.getElementById(
+            "reactionBox"
         );
 
     const result =
@@ -1490,112 +1133,196 @@ function createReactionGame() {
             "reactionResult"
         );
 
+    if (box) {
 
-    let startTime = 0;
+        box.className =
+            "reaction-box";
 
-    const delay =
-        Math.floor(
-            Math.random() * 3000
-        ) + 2000;
+        box.textContent =
+            "Click START";
 
+    }
 
-    window.currentGameInterval =
-        setTimeout(() => {
-
-            button.textContent =
-                "CLICK NOW!";
-
-            button.classList.add(
-                "reaction-ready"
-            );
-
-            startTime =
-                performance.now();
-
-        }, delay);
-
-
-    button.onclick = function() {
-
-        if (startTime === 0) {
-
-            result.textContent =
-                "Too early! Try again.";
-
-            return;
-        }
-
-        const reaction =
-            performance.now() -
-            startTime;
+    if (result) {
 
         result.textContent =
-            `⚡ Reaction time: ${Math.round(reaction)} ms`;
+            "Your time will appear here.";
 
-        button.textContent =
-            "Play Again";
-    };
+    }
+}
+
+
+/* =========================================================
+   NUMBER GUESS
+========================================================= */
+
+let secretNumber = 0;
+let guessAttempts = 0;
+
+
+function resetGuess() {
+
+    secretNumber =
+        Math.floor(
+            Math.random() * 100
+        ) + 1;
+
+    guessAttempts = 0;
+
+    const result =
+        document.getElementById(
+            "guessResult"
+        );
+
+    const attempts =
+        document.getElementById(
+            "guessAttempts"
+        );
+
+    const input =
+        document.getElementById(
+            "guessInput"
+        );
+
+    if (result) {
+        result.textContent =
+            "I'm thinking of a number...";
+    }
+
+    if (attempts) {
+        attempts.textContent =
+            "Attempts: 0";
+    }
+
+    if (input) {
+        input.value = "";
+    }
+}
+
+
+function makeGuess() {
+
+    const input =
+        document.getElementById(
+            "guessInput"
+        );
+
+    const result =
+        document.getElementById(
+            "guessResult"
+        );
+
+    const attempts =
+        document.getElementById(
+            "guessAttempts"
+        );
+
+    if (!input || !result) return;
+
+    const guess =
+        Number(input.value);
+
+    if (
+        !guess ||
+        guess < 1 ||
+        guess > 100
+    ) {
+
+        result.textContent =
+            "Enter a number from 1 to 100.";
+
+        return;
+    }
+
+    guessAttempts++;
+
+    if (attempts) {
+
+        attempts.textContent =
+            "Attempts: " +
+            guessAttempts;
+
+    }
+
+
+    if (guess === secretNumber) {
+
+        result.textContent =
+            "🎉 Correct! You got it!";
+
+    }
+
+    else if (guess < secretNumber) {
+
+        result.textContent =
+            "⬆️ Too low!";
+
+    }
+
+    else {
+
+        result.textContent =
+            "⬇️ Too high!";
+
+    }
 }
 
 
 /* =========================================================
    MEMORY GAME
-   ========================================================= */
+========================================================= */
 
-function createMemoryGame() {
-
-    const container =
-        document.getElementById(
-            "playGameContent"
-        );
-
-    const symbols = [
-        "🎮",
-        "👾",
-        "🚀",
-        "⚡",
-        "🔥",
-        "⭐",
-        "🎯",
-        "🕹️"
-    ];
-
-    const cards =
-        [...symbols, ...symbols]
-        .sort(() => Math.random() - 0.5);
+let memoryFirst = null;
+let memorySecond = null;
+let memoryLock = false;
+let memoryMatches = 0;
 
 
-    container.innerHTML = `
+const memorySymbols = [
+    "🎮", "🎮",
+    "⚽", "⚽",
+    "🚀", "🚀",
+    "🔥", "🔥",
+    "⭐", "⭐",
+    "👾", "👾",
+    "🐍", "🐍",
+    "🎯", "🎯"
+];
 
-        <h2>🧠 Memory</h2>
 
-        <p>
-            Find all matching pairs.
-        </p>
-
-        <div
-            id="memoryGrid"
-            class="memory-grid"
-        ></div>
-
-    `;
-
+function startMemory() {
 
     const grid =
         document.getElementById(
             "memoryGrid"
         );
 
-    let firstCard = null;
-    let secondCard = null;
-    let locked = false;
-    let matches = 0;
+    if (!grid) return;
+
+    grid.innerHTML = "";
+
+    memoryFirst = null;
+    memorySecond = null;
+    memoryLock = false;
+    memoryMatches = 0;
+
+    document.getElementById(
+        "memoryResult"
+    ).textContent =
+        "Matches: 0";
 
 
-    cards.forEach(symbol => {
+    const shuffled =
+        [...memorySymbols]
+        .sort(() => Math.random() - 0.5);
+
+
+    shuffled.forEach(symbol => {
 
         const card =
-            document.createElement("button");
+            document.createElement(
+                "button"
+            );
 
         card.className =
             "memory-card";
@@ -1606,95 +1333,449 @@ function createMemoryGame() {
         card.dataset.symbol =
             symbol;
 
-
-        card.onclick = function() {
-
-            if (
-                locked ||
-                card.classList.contains("matched") ||
-                card === firstCard
-            ) {
-                return;
-            }
-
-
-            card.textContent =
-                symbol;
-
-
-            if (!firstCard) {
-
-                firstCard = card;
-
-                return;
-            }
-
-
-            secondCard = card;
-
-            locked = true;
-
-
-            if (
-                firstCard.dataset.symbol ===
-                secondCard.dataset.symbol
-            ) {
-
-                firstCard.classList.add(
-                    "matched"
-                );
-
-                secondCard.classList.add(
-                    "matched"
-                );
-
-                matches++;
-
-                firstCard = null;
-                secondCard = null;
-
-                locked = false;
-
-
-                if (matches === symbols.length) {
-
-                    setTimeout(() => {
-
-                        alert(
-                            "🎉 You matched them all!"
-                        );
-
-                    }, 300);
-                }
-
-            } else {
-
-                setTimeout(() => {
-
-                    firstCard.textContent =
-                        "?";
-
-                    secondCard.textContent =
-                        "?";
-
-                    firstCard = null;
-                    secondCard = null;
-
-                    locked = false;
-
-                }, 700);
-            }
-        };
-
+        card.onclick =
+            () => flipMemoryCard(card);
 
         grid.appendChild(card);
+
     });
 }
 
 
+function flipMemoryCard(card) {
+
+    if (
+        memoryLock ||
+        card === memoryFirst ||
+        card.classList.contains("flipped")
+    ) {
+        return;
+    }
+
+    card.classList.add("flipped");
+
+    card.textContent =
+        card.dataset.symbol;
+
+
+    if (!memoryFirst) {
+
+        memoryFirst = card;
+
+        return;
+    }
+
+
+    memorySecond = card;
+
+    memoryLock = true;
+
+
+    if (
+        memoryFirst.dataset.symbol ===
+        memorySecond.dataset.symbol
+    ) {
+
+        memoryMatches++;
+
+        memoryFirst.disabled = true;
+        memorySecond.disabled = true;
+
+        memoryFirst = null;
+        memorySecond = null;
+        memoryLock = false;
+
+        document.getElementById(
+            "memoryResult"
+        ).textContent =
+            "Matches: " +
+            memoryMatches;
+
+
+        if (memoryMatches === 8) {
+
+            document.getElementById(
+                "memoryResult"
+            ).textContent =
+                "🏆 You matched everything!";
+
+            showNotification(
+                "Memory complete!",
+                "🏆"
+            );
+        }
+
+    }
+
+    else {
+
+        setTimeout(() => {
+
+            if (memoryFirst) {
+
+                memoryFirst.classList.remove(
+                    "flipped"
+                );
+
+                memoryFirst.textContent =
+                    "?";
+            }
+
+            if (memorySecond) {
+
+                memorySecond.classList.remove(
+                    "flipped"
+                );
+
+                memorySecond.textContent =
+                    "?";
+            }
+
+            memoryFirst = null;
+            memorySecond = null;
+            memoryLock = false;
+
+        }, 700);
+    }
+}
+
+
+/* =========================================================
+   SNAKE GAME
+========================================================= */
+
+const snakeCanvas =
+    document.getElementById(
+        "snakeCanvas"
+    );
+
+let snakeCtx =
+    snakeCanvas
+        ? snakeCanvas.getContext("2d")
+        : null;
+
+const snakeSize = 20;
+
+let snake = [];
+let snakeFood = {};
+let snakeDirection = "right";
+let snakeRunning = false;
+let snakeInterval = null;
+let snakePoints = 0;
+
+
+function startSnake() {
+
+    if (!snakeCanvas || !snakeCtx) return;
+
+    clearInterval(snakeInterval);
+
+    snake = [
+        { x: 200, y: 200 },
+        { x: 180, y: 200 },
+        { x: 160, y: 200 }
+    ];
+
+    snakeDirection = "right";
+    snakePoints = 0;
+    snakeRunning = true;
+
+    createSnakeFood();
+
+    updateSnakeScore();
+
+    drawSnake();
+
+    snakeInterval =
+        setInterval(
+            moveSnake,
+            120
+        );
+}
+
+
+function stopSnake() {
+
+    clearInterval(snakeInterval);
+
+    snakeInterval = null;
+    snakeRunning = false;
+}
+
+
+function resetSnakeCanvas() {
+
+    if (!snakeCanvas || !snakeCtx) return;
+
+    snakeCtx.clearRect(
+        0,
+        0,
+        snakeCanvas.width,
+        snakeCanvas.height
+    );
+
+    snakeCtx.fillStyle =
+        "#777";
+
+    snakeCtx.font =
+        "18px Arial";
+
+    snakeCtx.textAlign =
+        "center";
+
+    snakeCtx.fillText(
+        "Press START / RESTART",
+        snakeCanvas.width / 2,
+        snakeCanvas.height / 2
+    );
+}
+
+
+function createSnakeFood() {
+
+    snakeFood = {
+
+        x:
+            Math.floor(
+                Math.random() *
+                (snakeCanvas.width / snakeSize)
+            ) * snakeSize,
+
+        y:
+            Math.floor(
+                Math.random() *
+                (snakeCanvas.height / snakeSize)
+            ) * snakeSize
+    };
+}
+
+
+function moveSnake() {
+
+    if (!snakeRunning) return;
+
+    const head =
+        { ...snake[0] };
+
+
+    if (snakeDirection === "up") {
+        head.y -= snakeSize;
+    }
+
+    if (snakeDirection === "down") {
+        head.y += snakeSize;
+    }
+
+    if (snakeDirection === "left") {
+        head.x -= snakeSize;
+    }
+
+    if (snakeDirection === "right") {
+        head.x += snakeSize;
+    }
+
+
+    const hitWall =
+        head.x < 0 ||
+        head.x >= snakeCanvas.width ||
+        head.y < 0 ||
+        head.y >= snakeCanvas.height;
+
+
+    const hitSelf =
+        snake.some(segment =>
+            segment.x === head.x &&
+            segment.y === head.y
+        );
+
+
+    if (hitWall || hitSelf) {
+
+        snakeGameOver();
+
+        return;
+    }
+
+
+    snake.unshift(head);
+
+
+    if (
+        head.x === snakeFood.x &&
+        head.y === snakeFood.y
+    ) {
+
+        snakePoints++;
+
+        createSnakeFood();
+
+        updateSnakeScore();
+
+    }
+
+    else {
+
+        snake.pop();
+
+    }
+
+
+    drawSnake();
+}
+
+
+function drawSnake() {
+
+    if (!snakeCtx) return;
+
+    snakeCtx.clearRect(
+        0,
+        0,
+        snakeCanvas.width,
+        snakeCanvas.height
+    );
+
+
+    snakeCtx.fillStyle =
+        "#ef4444";
+
+    snakeCtx.fillRect(
+        snakeFood.x,
+        snakeFood.y,
+        snakeSize,
+        snakeSize
+    );
+
+
+    snakeCtx.fillStyle =
+        "#22c55e";
+
+
+    snake.forEach(segment => {
+
+        snakeCtx.fillRect(
+            segment.x,
+            segment.y,
+            snakeSize - 2,
+            snakeSize - 2
+        );
+
+    });
+}
+
+
+function snakeGameOver() {
+
+    stopSnake();
+
+    snakeCtx.fillStyle =
+        "white";
+
+    snakeCtx.font =
+        "28px Arial";
+
+    snakeCtx.textAlign =
+        "center";
+
+    snakeCtx.fillText(
+        "GAME OVER",
+        snakeCanvas.width / 2,
+        snakeCanvas.height / 2
+    );
+
+    showNotification(
+        "Snake game over! Score: " + snakePoints,
+        "🐍"
+    );
+}
+
+
+function updateSnakeScore() {
+
+    const score =
+        document.getElementById(
+            "snakeScore"
+        );
+
+    if (score) {
+
+        score.textContent =
+            "Score: " +
+            snakePoints;
+
+    }
+}
+
+
+/* =========================================================
+   SNAKE CONTROLS
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            !document
+                .getElementById("game-snake")
+                ?.style.display ||
+            document.getElementById("game-snake")
+                .style.display === "none"
+        ) {
+            return;
+        }
+
+
+        if (
+            event.key === "ArrowUp" &&
+            snakeDirection !== "down"
+        ) {
+
+            snakeDirection = "up";
+            event.preventDefault();
+
+        }
+
+
+        if (
+            event.key === "ArrowDown" &&
+            snakeDirection !== "up"
+        ) {
+
+            snakeDirection = "down";
+            event.preventDefault();
+
+        }
+
+
+        if (
+            event.key === "ArrowLeft" &&
+            snakeDirection !== "right"
+        ) {
+
+            snakeDirection = "left";
+            event.preventDefault();
+
+        }
+
+
+        if (
+            event.key === "ArrowRight" &&
+            snakeDirection !== "left"
+        ) {
+
+            snakeDirection = "right";
+            event.preventDefault();
+
+        }
+
+    }
+);
+
+
 /* =========================================================
    INITIALISE
-   ========================================================= */
+========================================================= */
 
 document.addEventListener(
     "DOMContentLoaded",
@@ -1704,7 +1785,9 @@ document.addEventListener(
 
         updateGameOfDay();
 
-        createGamesSection();
+        changeCalculator();
+
+        resetSnakeCanvas();
 
     }
 );
