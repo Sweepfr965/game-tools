@@ -1,6 +1,6 @@
 // =====================================================
 // GAME TOOLS - COMPLETE JAVASCRIPT
-// 150+ GAMES + ALL BUTTON FUNCTIONS
+// EXISTING TOOLS + 5 PLAYABLE GAMES
 // =====================================================
 
 
@@ -186,8 +186,6 @@ const games = [
     { name: "Balatro", genre: "indie", platforms: ["pc","playstation","xbox","switch","mobile"], icon: "🃏" },
     { name: "Vampire Survivors", genre: "indie", platforms: ["pc","playstation","xbox","switch","mobile"], icon: "🧛" },
     { name: "Limbo", genre: "indie", platforms: ["pc","playstation","xbox","switch"], icon: "🌑" },
-    { name: "Cuphead", genre: "indie", platforms: ["pc","playstation","xbox","switch"], icon: "☕" },
-    { name: "Inside", genre: "indie", platforms: ["pc","playstation","xbox","switch"], icon: "🌑" },
 
     // STRATEGY
     { name: "Civilization VI", genre: "strategy", platforms: ["pc","playstation","xbox","switch","mobile"], icon: "🌎" },
@@ -203,7 +201,6 @@ const games = [
     { name: "Into the Breach", genre: "strategy", platforms: ["pc","switch"], icon: "🤖" },
     { name: "Frostpunk", genre: "strategy", platforms: ["pc","playstation","xbox"], icon: "❄️" },
     { name: "Frostpunk 2", genre: "strategy", platforms: ["pc","playstation","xbox"], icon: "❄️" }
-
 ];
 
 
@@ -229,9 +226,7 @@ function loadGameOfDay() {
     const genre = document.getElementById("gameOfDayGenre");
     const platforms = document.getElementById("gameOfDayPlatforms");
 
-    if (name) {
-        name.textContent = `${game.icon} ${game.name}`;
-    }
+    if (name) name.textContent = `${game.icon} ${game.name}`;
 
     if (info) {
         info.textContent =
@@ -256,9 +251,8 @@ function loadGameOfDay() {
 // FAVORITES
 // =====================================================
 
-let favorites = JSON.parse(
-    localStorage.getItem("gameToolsFavorites") || "[]"
-);
+let favorites =
+    JSON.parse(localStorage.getItem("gameToolsFavorites") || "[]");
 
 function saveFavorites() {
 
@@ -267,7 +261,6 @@ function saveFavorites() {
         JSON.stringify(favorites)
     );
 }
-
 
 function favoriteGameOfDay() {
 
@@ -295,18 +288,15 @@ function favoriteGameOfDay() {
     }
 }
 
-
 function clearFavorites() {
 
     favorites = [];
 
     saveFavorites();
-
     renderFavorites();
 
     showNotification("🗑️ Favorites cleared!");
 }
-
 
 function renderFavorites() {
 
@@ -327,11 +317,12 @@ function renderFavorites() {
         return;
     }
 
-    list.innerHTML = favorites.map(name => `
-        <div class="favorite-item">
-            ⭐ ${name}
-        </div>
-    `).join("");
+    list.innerHTML =
+        favorites.map(name => `
+            <div class="favorite-item">
+                ⭐ ${name}
+            </div>
+        `).join("");
 }
 
 
@@ -352,18 +343,19 @@ function randomGame() {
 
     if (!result) return;
 
-    let availableGames = games.filter(game => {
+    const availableGames =
+        games.filter(game => {
 
-        const platformMatch =
-            platform === "all" ||
-            game.platforms.includes(platform);
+            const platformMatch =
+                platform === "all" ||
+                game.platforms.includes(platform);
 
-        const genreMatch =
-            genre === "all" ||
-            game.genre === genre;
+            const genreMatch =
+                genre === "all" ||
+                game.genre === genre;
 
-        return platformMatch && genreMatch;
-    });
+            return platformMatch && genreMatch;
+        });
 
     if (availableGames.length === 0) {
 
@@ -386,15 +378,8 @@ function randomGame() {
     result.innerHTML = `
         <div class="random-game-result">
             <span>${game.icon}</span>
-
-            <strong>
-                ${game.name}
-            </strong>
-
-            <small>
-                ${game.genre.toUpperCase()}
-            </small>
-
+            <strong>${game.name}</strong>
+            <small>${game.genre.toUpperCase()}</small>
             <small>
                 🎮 ${game.platforms
                     .map(p =>
@@ -413,7 +398,6 @@ function randomGame() {
 
 let countdownInterval = null;
 let countdownSeconds = 0;
-
 
 function startCountdown() {
 
@@ -448,7 +432,6 @@ function startCountdown() {
     }
 
     if (eventName) {
-
         eventName.textContent =
             eventInput?.value || "Gaming Event";
     }
@@ -466,13 +449,13 @@ function startCountdown() {
 
                 clearInterval(countdownInterval);
 
-                showNotification("⏰ Countdown finished!");
-
+                showNotification(
+                    "⏰ Countdown finished!"
+                );
             }
 
         }, 1000);
 }
-
 
 function updateCountdown() {
 
@@ -491,7 +474,6 @@ function updateCountdown() {
         `${String(minutes).padStart(2,"0")}:${String(seconds).padStart(2,"0")}`;
 }
 
-
 function resetCountdown() {
 
     clearInterval(countdownInterval);
@@ -504,13 +486,9 @@ function resetCountdown() {
     const eventName =
         document.getElementById("eventName");
 
-    if (timer) {
-        timer.textContent = "00:00";
-    }
+    if (timer) timer.textContent = "00:00";
 
-    if (eventName) {
-        eventName.textContent = "";
-    }
+    if (eventName) eventName.textContent = "";
 }
 
 
@@ -535,9 +513,7 @@ function changeCalculator() {
         const box =
             document.getElementById(id);
 
-        if (box) {
-            box.style.display = "none";
-        }
+        if (box) box.style.display = "none";
     });
 
     const selected =
@@ -551,9 +527,7 @@ function changeCalculator() {
                 : "matchesCalculator"
         );
 
-    if (selected) {
-        selected.style.display = "block";
-    }
+    if (selected) selected.style.display = "block";
 }
 
 
@@ -587,7 +561,6 @@ function calculateXP() {
 
     result.innerHTML =
         `🎮 Matches Needed: <strong>${matches}</strong>`;
-
 }
 
 
@@ -616,8 +589,7 @@ function calculateKD() {
         return;
     }
 
-    const kd =
-        kills / deaths;
+    const kd = kills / deaths;
 
     result.innerHTML =
         `🎯 K/D Ratio: <strong>${kd.toFixed(2)}</strong>`;
@@ -757,7 +729,6 @@ function calculateSensitivity() {
 let sessionInterval = null;
 let sessionSeconds = 0;
 
-
 function startSession() {
 
     if (sessionInterval) return;
@@ -774,7 +745,6 @@ function startSession() {
     showNotification("🎮 Session started!");
 }
 
-
 function stopSession() {
 
     clearInterval(sessionInterval);
@@ -784,20 +754,17 @@ function stopSession() {
     showNotification("⏹️ Session stopped!");
 }
 
-
 function resetSession() {
 
     clearInterval(sessionInterval);
 
     sessionInterval = null;
-
     sessionSeconds = 0;
 
     updateSessionTimer();
 
     showNotification("🔄 Session reset!");
 }
-
 
 function updateSessionTimer() {
 
@@ -850,9 +817,7 @@ const challenges = [
     "🎮 Play a random game from your library.",
     "💪 Beat your previous score.",
     "🌟 Try something outside your usual genre."
-
 ];
-
 
 function randomMode() {
 
@@ -957,7 +922,6 @@ function searchTools() {
         } else {
 
             card.style.display = "none";
-
         }
     });
 
@@ -1001,6 +965,1171 @@ function showNotification(message) {
 
 
 // =====================================================
+// =====================================================
+// PLAY GAMES
+// =====================================================
+// =====================================================
+
+
+// =====================================================
+// GAME 1 - REACTION TEST
+// =====================================================
+
+let reactionTimeout = null;
+let reactionStartTime = 0;
+let reactionReady = false;
+
+function startReactionGame() {
+
+    const box =
+        document.getElementById("reactionGame");
+
+    const message =
+        document.getElementById("reactionMessage");
+
+    const score =
+        document.getElementById("reactionScore");
+
+    if (!box || !message) return;
+
+    clearTimeout(reactionTimeout);
+
+    reactionReady = false;
+
+    box.classList.remove("reaction-ready");
+
+    message.textContent =
+        "Wait for green...";
+
+    if (score) {
+        score.textContent = "Last: -- ms";
+    }
+
+    const delay =
+        1500 + Math.random() * 3500;
+
+    reactionTimeout =
+        setTimeout(() => {
+
+            reactionReady = true;
+
+            reactionStartTime =
+                performance.now();
+
+            box.classList.add("reaction-ready");
+
+            message.textContent =
+                "CLICK NOW!";
+
+        }, delay);
+}
+
+function reactionClick() {
+
+    const box =
+        document.getElementById("reactionGame");
+
+    const message =
+        document.getElementById("reactionMessage");
+
+    const score =
+        document.getElementById("reactionScore");
+
+    if (!box || !message) return;
+
+    if (!reactionReady) {
+
+        if (reactionTimeout) {
+
+            clearTimeout(reactionTimeout);
+            reactionTimeout = null;
+        }
+
+        message.textContent =
+            "❌ Too early! Try again.";
+
+        box.classList.remove("reaction-ready");
+
+        reactionReady = false;
+
+        return;
+    }
+
+    const reactionTime =
+        Math.round(
+            performance.now() - reactionStartTime
+        );
+
+    reactionReady = false;
+
+    box.classList.remove("reaction-ready");
+
+    message.textContent =
+        "✅ Great reaction!";
+
+    if (score) {
+        score.textContent =
+            `Last: ${reactionTime} ms`;
+    }
+}
+
+
+// =====================================================
+// GAME 2 - SNAKE
+// =====================================================
+
+let snakeCanvas = null;
+let snakeContext = null;
+let snake = [];
+let snakeFood = {};
+let snakeDirection = { x: 1, y: 0 };
+let snakeNextDirection = { x: 1, y: 0 };
+let snakeScore = 0;
+let snakeInterval = null;
+let snakeRunning = false;
+
+const SNAKE_SIZE = 20;
+const SNAKE_WIDTH = 20;
+const SNAKE_HEIGHT = 20;
+
+function startSnake() {
+
+    snakeCanvas =
+        document.getElementById("snakeCanvas");
+
+    if (!snakeCanvas) return;
+
+    snakeContext =
+        snakeCanvas.getContext("2d");
+
+    clearInterval(snakeInterval);
+
+    snake = [
+        { x: 10, y: 10 },
+        { x: 9, y: 10 },
+        { x: 8, y: 10 }
+    ];
+
+    snakeDirection = { x: 1, y: 0 };
+    snakeNextDirection = { x: 1, y: 0 };
+
+    snakeScore = 0;
+    snakeRunning = true;
+
+    placeSnakeFood();
+    updateSnakeScore();
+    drawSnake();
+
+    snakeInterval =
+        setInterval(updateSnake, 120);
+}
+
+function updateSnake() {
+
+    if (!snakeRunning) return;
+
+    snakeDirection =
+        snakeNextDirection;
+
+    const head = {
+        x: snake[0].x + snakeDirection.x,
+        y: snake[0].y + snakeDirection.y
+    };
+
+    if (
+        head.x < 0 ||
+        head.x >= SNAKE_WIDTH ||
+        head.y < 0 ||
+        head.y >= SNAKE_HEIGHT
+    ) {
+
+        endSnake();
+
+        return;
+    }
+
+    for (let i = 0; i < snake.length; i++) {
+
+        if (
+            snake[i].x === head.x &&
+            snake[i].y === head.y
+        ) {
+
+            endSnake();
+
+            return;
+        }
+    }
+
+    snake.unshift(head);
+
+    if (
+        head.x === snakeFood.x &&
+        head.y === snakeFood.y
+    ) {
+
+        snakeScore++;
+
+        updateSnakeScore();
+
+        placeSnakeFood();
+
+    } else {
+
+        snake.pop();
+    }
+
+    drawSnake();
+}
+
+function drawSnake() {
+
+    if (!snakeContext || !snakeCanvas) return;
+
+    snakeContext.clearRect(
+        0,
+        0,
+        snakeCanvas.width,
+        snakeCanvas.height
+    );
+
+    snakeContext.fillStyle = "#111";
+
+    snakeContext.fillRect(
+        0,
+        0,
+        snakeCanvas.width,
+        snakeCanvas.height
+    );
+
+    snakeContext.fillStyle = "#00ff88";
+
+    snake.forEach(segment => {
+
+        snakeContext.fillRect(
+            segment.x * SNAKE_SIZE + 1,
+            segment.y * SNAKE_SIZE + 1,
+            SNAKE_SIZE - 2,
+            SNAKE_SIZE - 2
+        );
+    });
+
+    snakeContext.fillStyle = "#ff3b3b";
+
+    snakeContext.fillRect(
+        snakeFood.x * SNAKE_SIZE + 2,
+        snakeFood.y * SNAKE_SIZE + 2,
+        SNAKE_SIZE - 4,
+        SNAKE_SIZE - 4
+    );
+}
+
+function placeSnakeFood() {
+
+    do {
+
+        snakeFood = {
+            x: Math.floor(Math.random() * SNAKE_WIDTH),
+            y: Math.floor(Math.random() * SNAKE_HEIGHT)
+        };
+
+    } while (
+        snake.some(
+            segment =>
+                segment.x === snakeFood.x &&
+                segment.y === snakeFood.y
+        )
+    );
+}
+
+function changeSnakeDirection(x, y) {
+
+    if (
+        snakeDirection.x === -x &&
+        snakeDirection.y === -y
+    ) {
+        return;
+    }
+
+    snakeNextDirection = { x, y };
+}
+
+function endSnake() {
+
+    clearInterval(snakeInterval);
+
+    snakeInterval = null;
+    snakeRunning = false;
+
+    drawSnake();
+
+    showNotification(
+        `🐍 Game Over! Score: ${snakeScore}`
+    );
+}
+
+function updateSnakeScore() {
+
+    const score =
+        document.getElementById("snakeScore");
+
+    if (score) {
+        score.textContent =
+            `Score: ${snakeScore}`;
+    }
+}
+
+
+// =====================================================
+// SNAKE KEYBOARD CONTROLS
+// =====================================================
+
+document.addEventListener("keydown", event => {
+
+    const key = event.key.toLowerCase();
+
+    if (
+        key === "arrowup" ||
+        key === "w"
+    ) {
+        changeSnakeDirection(0, -1);
+    }
+
+    if (
+        key === "arrowdown" ||
+        key === "s"
+    ) {
+        changeSnakeDirection(0, 1);
+    }
+
+    if (
+        key === "arrowleft" ||
+        key === "a"
+    ) {
+        changeSnakeDirection(-1, 0);
+    }
+
+    if (
+        key === "arrowright" ||
+        key === "d"
+    ) {
+        changeSnakeDirection(1, 0);
+    }
+});
+
+
+// =====================================================
+// GAME 3 - MEMORY MATCH
+// =====================================================
+
+const memorySymbols = [
+    "🎮",
+    "🔥",
+    "⚽",
+    "🚀",
+    "👾",
+    "🏆"
+];
+
+let memoryCards = [];
+let memoryFirst = null;
+let memorySecond = null;
+let memoryLocked = false;
+let memoryMatches = 0;
+
+function startMemoryGame() {
+
+    const board =
+        document.getElementById("memoryBoard");
+
+    if (!board) return;
+
+    const cards =
+        [...memorySymbols, ...memorySymbols]
+            .sort(() => Math.random() - 0.5);
+
+    memoryCards = cards;
+    memoryFirst = null;
+    memorySecond = null;
+    memoryLocked = false;
+    memoryMatches = 0;
+
+    updateMemoryScore();
+
+    board.innerHTML = "";
+
+    cards.forEach((symbol, index) => {
+
+        const card =
+            document.createElement("button");
+
+        card.className =
+            "memory-card";
+
+        card.dataset.index =
+            index;
+
+        card.dataset.symbol =
+            symbol;
+
+        card.textContent =
+            "?";
+
+        card.onclick =
+            () => flipMemoryCard(card);
+
+        board.appendChild(card);
+    });
+}
+
+function flipMemoryCard(card) {
+
+    if (
+        memoryLocked ||
+        card.classList.contains("flipped") ||
+        card.classList.contains("matched")
+    ) {
+        return;
+    }
+
+    card.classList.add("flipped");
+
+    card.textContent =
+        card.dataset.symbol;
+
+    if (!memoryFirst) {
+
+        memoryFirst = card;
+
+        return;
+    }
+
+    memorySecond = card;
+
+    memoryLocked = true;
+
+    if (
+        memoryFirst.dataset.symbol ===
+        memorySecond.dataset.symbol
+    ) {
+
+        memoryFirst.classList.add("matched");
+        memorySecond.classList.add("matched");
+
+        memoryMatches++;
+
+        memoryFirst = null;
+        memorySecond = null;
+
+        memoryLocked = false;
+
+        updateMemoryScore();
+
+        if (memoryMatches === memorySymbols.length) {
+
+            showNotification(
+                "🧠 You matched them all!"
+            );
+        }
+
+    } else {
+
+        setTimeout(() => {
+
+            memoryFirst.classList.remove("flipped");
+            memorySecond.classList.remove("flipped");
+
+            memoryFirst.textContent = "?";
+            memorySecond.textContent = "?";
+
+            memoryFirst = null;
+            memorySecond = null;
+
+            memoryLocked = false;
+
+        }, 800);
+    }
+}
+
+function updateMemoryScore() {
+
+    const score =
+        document.getElementById("memoryScore");
+
+    if (score) {
+
+        score.textContent =
+            `Matches: ${memoryMatches}/${memorySymbols.length}`;
+    }
+}
+
+
+// =====================================================
+// GAME 4 - TIC TAC TOE
+// =====================================================
+
+let ticBoard = ["","","","","","","","",""];
+let ticPlayer = "X";
+let ticGameOver = false;
+
+const ticWinningLines = [
+    [0,1,2],
+    [3,4,5],
+    [6,7,8],
+    [0,3,6],
+    [1,4,7],
+    [2,5,8],
+    [0,4,8],
+    [2,4,6]
+];
+
+function startTicTacToe() {
+
+    ticBoard =
+        ["","","","","","","","",""];
+
+    ticPlayer = "X";
+    ticGameOver = false;
+
+    const status =
+        document.getElementById("ticStatus");
+
+    if (status) {
+        status.textContent =
+            "Player X's turn";
+    }
+
+    renderTicTacToe();
+}
+
+function renderTicTacToe() {
+
+    const board =
+        document.getElementById("ticBoard");
+
+    if (!board) return;
+
+    board.innerHTML = "";
+
+    ticBoard.forEach((value, index) => {
+
+        const button =
+            document.createElement("button");
+
+        button.className =
+            "tic-cell";
+
+        button.textContent =
+            value;
+
+        button.onclick =
+            () => playTicTacToe(index);
+
+        board.appendChild(button);
+    });
+}
+
+function playTicTacToe(index) {
+
+    if (
+        ticGameOver ||
+        ticBoard[index] !== ""
+    ) {
+        return;
+    }
+
+    ticBoard[index] =
+        ticPlayer;
+
+    renderTicTacToe();
+
+    const winner =
+        getTicWinner();
+
+    if (winner) {
+
+        endTicTacToe(
+            `🏆 Player ${winner} wins!`
+        );
+
+        return;
+    }
+
+    if (!ticBoard.includes("")) {
+
+        endTicTacToe(
+            "🤝 It's a draw!"
+        );
+
+        return;
+    }
+
+    ticPlayer =
+        ticPlayer === "X"
+            ? "O"
+            : "X";
+
+    const status =
+        document.getElementById("ticStatus");
+
+    if (status) {
+
+        status.textContent =
+            `Player ${ticPlayer}'s turn`;
+    }
+}
+
+function getTicWinner() {
+
+    for (const line of ticWinningLines) {
+
+        const [a,b,c] = line;
+
+        if (
+            ticBoard[a] &&
+            ticBoard[a] === ticBoard[b] &&
+            ticBoard[a] === ticBoard[c]
+        ) {
+
+            return ticBoard[a];
+        }
+    }
+
+    return null;
+}
+
+function endTicTacToe(message) {
+
+    ticGameOver = true;
+
+    const status =
+        document.getElementById("ticStatus");
+
+    if (status) {
+        status.textContent = message;
+    }
+
+    showNotification(message);
+}
+
+
+// =====================================================
+// GAME 5 - DODGE THE BLOCKS
+// =====================================================
+
+let dodgeCanvas = null;
+let dodgeContext = null;
+let dodgePlayer = {};
+let dodgeBlocks = [];
+let dodgeScore = 0;
+let dodgeRunning = false;
+let dodgeAnimation = null;
+let dodgeLastTime = 0;
+let dodgeSpawnTimer = 0;
+
+function startDodgeGame() {
+
+    dodgeCanvas =
+        document.getElementById("dodgeCanvas");
+
+    if (!dodgeCanvas) return;
+
+    dodgeContext =
+        dodgeCanvas.getContext("2d");
+
+    dodgePlayer = {
+        x: dodgeCanvas.width / 2 - 20,
+        y: dodgeCanvas.height - 60,
+        width: 40,
+        height: 40,
+        speed: 7
+    };
+
+    dodgeBlocks = [];
+    dodgeScore = 0;
+    dodgeRunning = true;
+    dodgeLastTime = performance.now();
+    dodgeSpawnTimer = 0;
+
+    updateDodgeScore();
+
+    cancelAnimationFrame(dodgeAnimation);
+
+    dodgeAnimation =
+        requestAnimationFrame(updateDodgeGame);
+}
+
+function updateDodgeGame(timestamp) {
+
+    if (!dodgeRunning) return;
+
+    const delta =
+        timestamp - dodgeLastTime;
+
+    dodgeLastTime = timestamp;
+
+    dodgeSpawnTimer += delta;
+
+    if (dodgeSpawnTimer > 700) {
+
+        spawnDodgeBlock();
+
+        dodgeSpawnTimer = 0;
+    }
+
+    dodgeBlocks.forEach(block => {
+
+        block.y += block.speed;
+    });
+
+    dodgeBlocks =
+        dodgeBlocks.filter(
+            block =>
+                block.y <
+                dodgeCanvas.height + block.height
+        );
+
+    checkDodgeCollision();
+
+    dodgeScore += delta / 1000;
+
+    updateDodgeScore();
+
+    drawDodgeGame();
+
+    dodgeAnimation =
+        requestAnimationFrame(updateDodgeGame);
+}
+
+function spawnDodgeBlock() {
+
+    const size =
+        25 + Math.random() * 35;
+
+    dodgeBlocks.push({
+
+        x:
+            Math.random() *
+            (dodgeCanvas.width - size),
+
+        y:
+            -size,
+
+        width:
+            size,
+
+        height:
+            size,
+
+        speed:
+            3 + Math.random() * 4
+    });
+}
+
+function drawDodgeGame() {
+
+    if (!dodgeContext) return;
+
+    dodgeContext.clearRect(
+        0,
+        0,
+        dodgeCanvas.width,
+        dodgeCanvas.height
+    );
+
+    dodgeContext.fillStyle =
+        "#111";
+
+    dodgeContext.fillRect(
+        0,
+        0,
+        dodgeCanvas.width,
+        dodgeCanvas.height
+    );
+
+    dodgeContext.fillStyle =
+        "#00ff88";
+
+    dodgeContext.fillRect(
+        dodgePlayer.x,
+        dodgePlayer.y,
+        dodgePlayer.width,
+        dodgePlayer.height
+    );
+
+    dodgeContext.fillStyle =
+        "#ff3b3b";
+
+    dodgeBlocks.forEach(block => {
+
+        dodgeContext.fillRect(
+            block.x,
+            block.y,
+            block.width,
+            block.height
+        );
+    });
+}
+
+function checkDodgeCollision() {
+
+    for (const block of dodgeBlocks) {
+
+        if (
+            dodgePlayer.x <
+                block.x + block.width &&
+            dodgePlayer.x +
+                dodgePlayer.width >
+                block.x &&
+            dodgePlayer.y <
+                block.y + block.height &&
+            dodgePlayer.y +
+                dodgePlayer.height >
+                block.y
+        ) {
+
+            endDodgeGame();
+
+            return;
+        }
+    }
+}
+
+function endDodgeGame() {
+
+    dodgeRunning = false;
+
+    cancelAnimationFrame(dodgeAnimation);
+
+    const finalScore =
+        Math.floor(dodgeScore);
+
+    showNotification(
+        `🚀 Game Over! Score: ${finalScore}`
+    );
+}
+
+function updateDodgeScore() {
+
+    const score =
+        document.getElementById("dodgeScore");
+
+    if (score) {
+
+        score.textContent =
+            `Score: ${Math.floor(dodgeScore)}`;
+    }
+}
+
+function moveDodgePlayer(direction) {
+
+    if (!dodgeRunning || !dodgeCanvas) return;
+
+    dodgePlayer.x +=
+        direction * dodgePlayer.speed;
+
+    if (dodgePlayer.x < 0) {
+
+        dodgePlayer.x = 0;
+    }
+
+    if (
+        dodgePlayer.x +
+        dodgePlayer.width >
+        dodgeCanvas.width
+    ) {
+
+        dodgePlayer.x =
+            dodgeCanvas.width -
+            dodgePlayer.width;
+    }
+}
+
+
+// =====================================================
+// DODGE KEYBOARD CONTROLS
+// =====================================================
+
+document.addEventListener("keydown", event => {
+
+    const key =
+        event.key.toLowerCase();
+
+    if (
+        key === "arrowleft" ||
+        key === "a"
+    ) {
+
+        moveDodgePlayer(-1);
+    }
+
+    if (
+        key === "arrowright" ||
+        key === "d"
+    ) {
+
+        moveDodgePlayer(1);
+    }
+});
+
+
+// =====================================================
+// PLAY GAME SECTION GENERATOR
+// =====================================================
+
+function createPlayGamesSection() {
+
+    if (
+        document.getElementById("playGames")
+    ) {
+        return;
+    }
+
+    const toolsSection =
+        document.getElementById("tools");
+
+    if (!toolsSection) return;
+
+    const section =
+        document.createElement("section");
+
+    section.className =
+        "play-games";
+
+    section.id =
+        "playGames";
+
+    section.innerHTML = `
+
+        <div class="section-heading">
+
+            <p class="section-label">
+                🎮 PLAY
+            </p>
+
+            <h2>
+                Play Games
+            </h2>
+
+            <p>
+                Take a break and play some
+                quick games right here.
+            </p>
+
+        </div>
+
+
+        <!-- REACTION TEST -->
+
+        <div class="play-game-card">
+
+            <div class="tool-icon">
+                ⚡
+            </div>
+
+            <h3>
+                Reaction Test
+            </h3>
+
+            <p>
+                Wait for green and click
+                as quickly as possible.
+            </p>
+
+            <div
+                id="reactionGame"
+                class="reaction-game"
+                onclick="reactionClick()"
+            >
+
+                <strong id="reactionMessage">
+                    Press Start
+                </strong>
+
+            </div>
+
+            <p id="reactionScore">
+                Last: -- ms
+            </p>
+
+            <button onclick="startReactionGame()">
+                Start Reaction Test
+            </button>
+
+        </div>
+
+
+        <!-- SNAKE -->
+
+        <div class="play-game-card">
+
+            <div class="tool-icon">
+                🐍
+            </div>
+
+            <h3>
+                Snake
+            </h3>
+
+            <p>
+                Eat the food and don't
+                hit the walls or yourself.
+            </p>
+
+            <canvas
+                id="snakeCanvas"
+                width="400"
+                height="400"
+            ></canvas>
+
+            <p id="snakeScore">
+                Score: 0
+            </p>
+
+            <button onclick="startSnake()">
+                Start Snake
+            </button>
+
+            <div class="game-controls">
+
+                <button onclick="changeSnakeDirection(0,-1)">
+                    ⬆️
+                </button>
+
+                <div>
+                    <button onclick="changeSnakeDirection(-1,0)">
+                        ⬅️
+                    </button>
+
+                    <button onclick="changeSnakeDirection(0,1)">
+                        ⬇️
+                    </button>
+
+                    <button onclick="changeSnakeDirection(1,0)">
+                        ➡️
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- MEMORY -->
+
+        <div class="play-game-card">
+
+            <div class="tool-icon">
+                🧠
+            </div>
+
+            <h3>
+                Memory Match
+            </h3>
+
+            <p>
+                Find all matching pairs.
+            </p>
+
+            <div id="memoryBoard">
+            </div>
+
+            <p id="memoryScore">
+                Matches: 0/6
+            </p>
+
+            <button onclick="startMemoryGame()">
+                New Memory Game
+            </button>
+
+        </div>
+
+
+        <!-- TIC TAC TOE -->
+
+        <div class="play-game-card">
+
+            <div class="tool-icon">
+                ❌
+            </div>
+
+            <h3>
+                Tic-Tac-Toe
+            </h3>
+
+            <p>
+                Classic two-player game.
+            </p>
+
+            <div id="ticBoard">
+            </div>
+
+            <p id="ticStatus">
+                Player X's turn
+            </p>
+
+            <button onclick="startTicTacToe()">
+                New Game
+            </button>
+
+        </div>
+
+
+        <!-- DODGE -->
+
+        <div class="play-game-card">
+
+            <div class="tool-icon">
+                🚀
+            </div>
+
+            <h3>
+                Dodge The Blocks
+            </h3>
+
+            <p>
+                Move left and right and
+                survive for as long as possible.
+            </p>
+
+            <canvas
+                id="dodgeCanvas"
+                width="400"
+                height="400"
+            ></canvas>
+
+            <p id="dodgeScore">
+                Score: 0
+            </p>
+
+            <button onclick="startDodgeGame()">
+                Start Dodge
+            </button>
+
+            <div class="game-controls">
+
+                <button onclick="moveDodgePlayer(-1)">
+                    ⬅️ Left
+                </button>
+
+                <button onclick="moveDodgePlayer(1)">
+                    Right ➡️
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
+
+    toolsSection.after(section);
+
+    startMemoryGame();
+    startTicTacToe();
+}
+
+
+// =====================================================
 // STARTUP
 // =====================================================
 
@@ -1013,5 +2142,7 @@ document.addEventListener("DOMContentLoaded", () => {
     changeCalculator();
 
     updateSessionTimer();
+
+    createPlayGamesSection();
 
 });
