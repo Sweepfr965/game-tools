@@ -1289,3 +1289,292 @@ footer small {
     }
 
 }
+/* =========================================
+   PLAY GAMES DROPDOWN
+========================================= */
+
+.games-section {
+    width: 100%;
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+
+.games-dropdown {
+    width: 100%;
+}
+
+.games-dropdown summary {
+    list-style: none;
+    cursor: pointer;
+    background: #15151f;
+    border: 1px solid #29293a;
+    border-radius: 14px;
+    padding: 20px 25px;
+    font-size: 22px;
+    font-weight: 700;
+    color: white;
+    transition: 0.2s ease;
+}
+
+.games-dropdown summary::-webkit-details-marker {
+    display: none;
+}
+
+.games-dropdown summary::after {
+    content: "▼";
+    float: right;
+    font-size: 14px;
+    transition: transform 0.2s ease;
+}
+
+.games-dropdown[open] summary::after {
+    transform: rotate(180deg);
+}
+
+.games-dropdown summary:hover {
+    transform: translateY(-2px);
+    border-color: #5555ff;
+}
+
+
+/* =========================================
+   GAME GRID
+========================================= */
+
+.games-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin-top: 20px;
+}
+
+.game-card {
+    background: #15151f;
+    border: 1px solid #29293a;
+    border-radius: 14px;
+    padding: 25px 15px;
+    min-height: 150px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.game-card:hover {
+    transform: translateY(-5px);
+    border-color: #6666ff;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.game-card .game-icon {
+    font-size: 45px;
+    margin-bottom: 12px;
+}
+
+.game-card h3 {
+    margin: 0;
+    color: white;
+    font-size: 18px;
+}
+
+.game-card p {
+    margin: 7px 0 0;
+    color: #9999aa;
+    font-size: 13px;
+}
+
+
+/* =========================================
+   FULLSCREEN GAME PLAYER
+========================================= */
+
+.game-player {
+    position: fixed;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: #08080d;
+
+    z-index: 99999;
+
+    display: none;
+    flex-direction: column;
+}
+
+.game-player.active {
+    display: flex;
+}
+
+
+/* =========================================
+   GAME PLAYER HEADER
+========================================= */
+
+.game-player-header {
+    height: 65px;
+    min-height: 65px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 20px;
+
+    background: #11111a;
+    border-bottom: 1px solid #29293a;
+}
+
+.game-player-title {
+    color: white;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.exit-game-button {
+    border: none;
+    background: #e53935;
+    color: white;
+
+    padding: 11px 20px;
+
+    border-radius: 9px;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.exit-game-button:hover {
+    background: #ff4d49;
+    transform: scale(1.03);
+}
+
+
+/* =========================================
+   GAME AREA
+========================================= */
+
+.game-player-area {
+    flex: 1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    overflow: auto;
+}
+
+.game-container {
+    width: 100%;
+    max-width: 1000px;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* =========================================
+   GAME CANVAS
+========================================= */
+
+.game-container canvas {
+    max-width: 100%;
+    max-height: 100%;
+
+    border-radius: 10px;
+
+    background: #000;
+
+    box-shadow:
+        0 0 30px rgba(0, 0, 0, 0.6);
+}
+
+
+/* =========================================
+   GAME UI
+========================================= */
+
+.game-message {
+    text-align: center;
+    color: white;
+}
+
+.game-message h2 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.game-message p {
+    color: #9999aa;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 900px) {
+
+    .games-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+}
+
+
+@media (max-width: 650px) {
+
+    .games-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .game-card {
+        min-height: 130px;
+        padding: 18px 10px;
+    }
+
+    .game-card .game-icon {
+        font-size: 35px;
+    }
+
+    .game-player-header {
+        padding: 0 12px;
+    }
+
+    .game-player-title {
+        font-size: 16px;
+    }
+
+    .exit-game-button {
+        padding: 9px 14px;
+    }
+
+}
+
+
+@media (max-width: 400px) {
+
+    .games-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+}
