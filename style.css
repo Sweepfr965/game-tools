@@ -1150,3 +1150,142 @@ footer small {
     }
 
 }
+/* =====================================================
+   PLAY GAMES
+===================================================== */
+
+.play-games {
+    padding: 80px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.play-game-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px;
+    padding: 30px;
+    margin: 25px 0;
+    text-align: center;
+    overflow: hidden;
+}
+
+.play-game-card h3 {
+    margin: 10px 0;
+}
+
+.play-game-card button {
+    cursor: pointer;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 20px;
+    margin: 6px;
+    font-weight: 700;
+}
+
+.play-game-card canvas {
+    display: block;
+    width: 400px;
+    max-width: 100%;
+    height: auto;
+    margin: 20px auto;
+    border-radius: 12px;
+}
+
+.reaction-game {
+    width: 100%;
+    min-height: 180px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #333;
+    margin: 20px 0;
+    cursor: pointer;
+    user-select: none;
+}
+
+.reaction-game.reaction-ready {
+    background: #16a34a;
+}
+
+.reaction-game strong {
+    font-size: 24px;
+}
+
+.game-controls {
+    margin-top: 15px;
+}
+
+.game-controls button {
+    min-width: 60px;
+}
+
+#memoryBoard {
+    display: grid;
+    grid-template-columns: repeat(4, 70px);
+    gap: 10px;
+    justify-content: center;
+    margin: 25px auto;
+}
+
+.memory-card {
+    width: 70px;
+    height: 70px;
+    font-size: 28px;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.memory-card.flipped,
+.memory-card.matched {
+    transform: scale(1.03);
+}
+
+#ticBoard {
+    display: grid;
+    grid-template-columns: repeat(3, 80px);
+    gap: 8px;
+    justify-content: center;
+    margin: 25px auto;
+}
+
+.tic-cell {
+    width: 80px;
+    height: 80px;
+    font-size: 32px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+@media (max-width: 600px) {
+
+    .play-games {
+        padding: 50px 15px;
+    }
+
+    .play-game-card {
+        padding: 20px 12px;
+    }
+
+    #memoryBoard {
+        grid-template-columns: repeat(4, 60px);
+        gap: 7px;
+    }
+
+    .memory-card {
+        width: 60px;
+        height: 60px;
+    }
+
+    #ticBoard {
+        grid-template-columns: repeat(3, 70px);
+    }
+
+    .tic-cell {
+        width: 70px;
+        height: 70px;
+    }
+
+}
